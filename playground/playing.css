@@ -1,0 +1,29 @@
+body {
+	font-family: Arial, sans-serif;
+	display: flex;
+	flex-wrap: wrap;
+}
+
+.dialogContainer {
+	display: flex;
+	flex-wrap: wrap;
+	overflow-wrap: anywhere;
+	position: absolute;
+	width: 25%;
+	align-items: center;
+	justify-content: center;
+	flex-direction: column;
+	border: 1px solid black;
+	padding: .5em;
+	background: white;
+}
+
+.dialogContainer .dialogTitle {
+	margin: 0;
+}
+
+.dialogButton {
+	padding: 1em;
+	width: 50%;
+	margin: 1em;
+}
