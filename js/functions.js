@@ -1,7 +1,7 @@
 'use strict';
 (function () {
     /**
-     * @param name a name.
+     * @param {string} name a name.
      * @returns {string}
      */
     function sayHello(name) {
@@ -24,8 +24,9 @@
     let random = Math.floor((Math.random() * 3) + 1);
 
     /**
+     * @isTwo
      * Determines if a number is equal to '2'
-     * @param number the number
+     * @param {number} number the number
      * @returns {boolean}
      */
     function isTwo(number) {
@@ -69,5 +70,4 @@
     let discount = parseFloat(prompt('What is the discount as a decimal (ex. 10% is .10)?'));
     let finalPrice = applyDiscount(originalPrice, discount);
     alert(finalPrice);
-
 }());
