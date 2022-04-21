@@ -1,8 +1,8 @@
-import {randomColor, randomHSL, randomIntFromInterval} from '../utils/utils.js';
+import { randomColor, randomHSL, randomBetween } from '../utils/utils.js';
 
 const Dialog = (title, message, pos = {
-    x: randomIntFromInterval(0, 75),
-    y: randomIntFromInterval(0, 75)
+    x: randomBetween(0, 75),
+    y: randomBetween(0, 75)
 }, button = {
     good: 'Good',
     bad: 'Bad'
