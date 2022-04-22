@@ -5,7 +5,7 @@
     console.log('Length:', names.length);
 
     // ######################### Logging Names Manually #########################
-    console.group('%c Names', 'color: #FF232F');
+    console.group('Names');
     console.log(names[0]);
     console.log(names[1]);
     console.log(names[2]);
