@@ -5,7 +5,7 @@
     // Continue asking the user for an odd number between 1 and 50
     while (true) {
         userNum = parseFloat(prompt('Enter an odd number between 1 and 50'));
-        if (userNum < 50 && userNum > 0 && !isNaN(userNum) && userNum % 2 === 1) break;
+        if (userNum <= 50 && userNum >= 1 && !isNaN(userNum) && userNum % 2 === 1) break;
     }
 
     // Loop from 1 to 50 only logging odd numbers
@@ -13,7 +13,7 @@
         // If number is even, move to next iteration.
         if (i % 2 === 0) continue;
 
-        // else, log the number, but "skip" the user's number
+        // Else, log the number, but "skip" the user's number
         let output = ``;
         i === userNum
             ? output = `Yikes! Skipping ${i}`

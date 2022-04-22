@@ -1,6 +1,6 @@
 'use strict';
 // import { randomBetween } from '../playground/utils/utils.js';
-(function () {
+(() => {
     const randomBetween = (min, max) => Math.floor(Math.random() * (max - min + 1) + min);
 
     // Function that logs the multiplication table from 1 to 10 for a given input
@@ -23,7 +23,7 @@
         console.log(output);
     }
 
-    // Logging number period from 1 to 9
+    // Logging number pyramid from 1 to 9
     for (let i = 1; i <= 9; i++) {
         console.log(i.toString().repeat(i));
     }
@@ -32,7 +32,8 @@
     for (let i = 100; i > 0; i -= 5) {
         console.log(i);
     }
-}());
+    
+})();
 
 
 

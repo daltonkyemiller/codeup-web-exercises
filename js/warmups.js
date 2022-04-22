@@ -9,4 +9,5 @@
         console.log(output !== '' ? output : i);
     }
 
+    console.log('-----------------------------');
 }());
