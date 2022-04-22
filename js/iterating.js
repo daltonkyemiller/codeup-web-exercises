@@ -4,7 +4,7 @@
     let names = ['Ashley', 'Dalton', 'Willow', 'Quinn'];
     console.log('Length:', names.length);
 
-    // ######################### Logging Names Manually #########################
+    // ######################### Logging names manually #########################
     console.group('Names');
     console.log(names[0]);
     console.log(names[1]);
