@@ -22,4 +22,7 @@
     console.log(unorderedList);
 
 
+    document.body.innerHTML += unorderedList;
+
+
 })();

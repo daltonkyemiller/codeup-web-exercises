@@ -3,8 +3,28 @@
     <head>
         <meta charset="UTF-8">
         <title>Planets</title>
+        <style>
+			@keyframes rotating {
+				from {
+					transform: rotateY(0deg);
+				}
+				to {
+					transform: rotateY(360deg);
+				}
+			}
+
+			* {
+				font-family: Arial, sans-serif;
+			}
+
+			h1 {
+				display: inline-block;
+				animation: rotating 2s ease-in-out infinite;
+			}
+        </style>
     </head>
     <body>
+        <h1>Planets</h1>
         <script src="./js/planets-array.js"></script>
         <script src="./js/planets-string.js"></script>
     </body>
