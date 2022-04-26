@@ -20,9 +20,9 @@
 
     // ############################## HEB shoppers ############################## //
     let shoppers = [
-        {name: 'Cameron', amount: 180},
-        {name: 'Ryan', amount: 250},
-        {name: 'George', amount: 320}
+        { name: 'Cameron', amount: 180 },
+        { name: 'Ryan', amount: 250 },
+        { name: 'George', amount: 320 }
     ];
 
 
@@ -97,14 +97,13 @@
      * @param authorName - a string with the author's first and last name separated by a space
      * @returns An object with a title and author property.
      */
-
     function createBook(title, authorName) {
         let nameArr = authorName.split(' ');
         return {
             title,
             author: {
                 firstName: nameArr[0],
-                lastName: nameArr[1]
+                lastName: nameArr[1] !== undefined ? nameArr[1] : ''
             }
         };
     }
@@ -114,8 +113,9 @@
         createBook('1984', 'George Orwell'),
         createBook('High Fidelity', 'Nick Hornby'),
         createBook('12 Rules for Life', 'Jordan Peterson'),
-        createBook('Bleak House', 'Charles Dickens')
+        createBook('Bleak House', 'Charles Dickens'),
     ];
+    console.log(newBooks);
 
     function showBookInfo(book) {
         return `Title: ${book.title}\nAuthor: ${book.author.firstName} ${book.author.lastName}`;
