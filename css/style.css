@@ -1,4 +1,49 @@
+html {
+	font-family: Arial, sans-serif;
+	background-image: url("../img/welcome/5.jpg");
+	background-size: cover;
+}
+
 .fancy-header {
 	color: purple;
 	text-decoration: underline;
+
+	text-align: center;
+}
+
+h1, h2 {
+	color: red;
+	text-decoration: underline;
+}
+
+ul {
+	list-style: square;
+}
+
+th {
+	font-size: 1.25em;
+}
+
+table, td, th {
+	padding: .5em;
+	border: 1px solid black;
+}
+
+a {
+	color: white;
+	opacity: .5;
+	transition: all 250ms;
+
+}
+
+a:hover {
+	opacity: 1;
+}
+
+a:visited {
+	color: blue;
+}
+
+a:active {
+	background-color: red;
 }
