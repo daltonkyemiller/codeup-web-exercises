@@ -30,4 +30,11 @@
     console.log(`Result: ${allFirstLetters(arr)}`);
     console.groupEnd();
 
+    // ############################## Warmup 04/28 ############################## //
+    function alphabetize(str) {
+        return str.split('').sort().join('');
+    }
+
+    console.log(alphabetize('codeup'));
+
 }());
