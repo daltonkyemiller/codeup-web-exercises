@@ -37,4 +37,18 @@
 
     console.log(alphabetize('codeup'));
 
+    // ############################## Warmup 05/02 ############################## //
+    function sumOfElements(arr) {
+        let total = 0;
+        arr.forEach(num => {
+            let parsedNum = parseFloat(num);
+            if (isNaN(parsedNum)) return console.warn(num + ' is NaN and cannot be coerced into a number...skipping');
+            total += parsedNum;
+        });
+
+        return total;
+    }
+
+    console.log('Total is: ' + sumOfElements([1, 2, 'abc', 3, '4', 5]));
+
 }());
