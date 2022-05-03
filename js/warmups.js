@@ -51,4 +51,37 @@
 
     console.log('Total is: ' + sumOfElements([1, 2, 'abc', 3, '4', 5]));
 
+    // ############################## Warmup 05/03 ############################## //
+    function returnProductEssentialDetails(obj) {
+        return { name: obj.name, priceInCents: obj.priceInCents };
+    }
+
+    let product1 = {
+        name: 'Hammer',
+        priceInCents: 400,
+        description: 'It is a hammer.',
+        inventory: 25034
+    };
+    let product2 = {
+        name: 'Computer',
+        priceInCents: 40000,
+        description: 'It is a computer.',
+        inventory: 33000
+    };
+
+    let product3 = {
+        name: 'Ruler',
+        priceInCents: 1000,
+        description: 'It is a ruler.',
+        inventory: 2200
+    };
+    console.log(returnProductEssentialDetails(product1));
+
+    // ############################## Warmup 05/03 BONUS ############################## //
+
+    function returnAllProductsEssentialDetails(arrOfObjs) {
+        return arrOfObjs.map(obj => returnProductEssentialDetails(obj));
+    }
+
+    console.log(returnAllProductsEssentialDetails([product1, product2, product3]));
 }());
