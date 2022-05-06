@@ -1,0 +1,8 @@
+.pizza-container {
+	background-image: url("../img/pizza.png");
+	background-size: cover;
+	background-position: left;
+
+	width: 100%;
+	height: 346px;
+}
