@@ -26,7 +26,7 @@ const prettyString = (str, colorDelay = 250) => {
     return htmlToElement(`
         <div id="prettyString">
             <h1>
-                ${charArr.map(char => `<span style="display: inline-block; color: ${randomHSL()}; transition: color ${colorDelay}ms ease-in-out">${char}</span>`).join('')}
+                ${charArr.map(char => `<span style="display: inline-block; color: ${randomHSL(75)}; transition: color ${colorDelay}ms ease-in-out">${char}</span>`).join('')}
             </h1>
         </div>`);
 };
@@ -62,7 +62,7 @@ const animate = async (element, properties = {}, options = {}) => {
         }
         // await delay(options.delay);
 
-        let anim = element.animate({[key]: value}, {
+        let anim = element.animate({ [key]: value }, {
             duration: options.duration,
             easing: options.easing,
             delay: options.stagger * idx

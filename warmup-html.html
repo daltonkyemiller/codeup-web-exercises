@@ -3,8 +3,27 @@
     <head>
         <meta charset="UTF-8">
         <title>Warmup</title>
+        <style>
+			* {
+				font-family: sans-serif;
+			}
+
+			body {
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				width: 100vw;
+				height: 100vh;
+			}
+        </style>
     </head>
     <body>
+        <script src="./playground/utils/utils.js" type="module" defer></script>
+        <script type="module" defer>
+            import { prettyString } from './playground/utils/utils.js';
+
+            document.body.appendChild(prettyString('WARMUPS'));
+        </script>
         <script src="./js/warmups.js"></script>
     </body>
 </html>

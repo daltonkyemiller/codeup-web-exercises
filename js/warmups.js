@@ -35,7 +35,10 @@
         return str.split('').sort().join('');
     }
 
+    console.group('04/28');
     console.log(alphabetize('codeup'));
+    console.groupEnd();
+
 
     // ############################## Warmup 05/02 ############################## //
     function sumOfElements(arr) {
@@ -49,7 +52,9 @@
         return total;
     }
 
+    console.group('05/02');
     console.log('Total is: ' + sumOfElements([1, 2, 'abc', 3, '4', 5]));
+    console.groupEnd();
 
     // ############################## Warmup 05/03 ############################## //
     function returnProductEssentialDetails(obj) {
@@ -75,6 +80,7 @@
         description: 'It is a ruler.',
         inventory: 2200
     };
+    console.group('05/03');
     console.log(returnProductEssentialDetails(product1));
 
     // ############################## Warmup 05/03 BONUS ############################## //
@@ -84,4 +90,75 @@
     }
 
     console.log(returnAllProductsEssentialDetails([product1, product2, product3]));
+    console.groupEnd();
+
+    // ############################## Warmup 05/09 ############################## //
+    const hamsters = [
+        {
+            name: 'Hamtaro',
+            heightInMM: 86,
+            fur: ['orange', 'white'],
+            gender: 'male',
+            dateOfBirth: 'August 6'
+        }, {
+            name: 'Bijou',
+            heightInMM: 75,
+            fur: ['white'],
+            gender: 'female',
+            dateOfBirth: 'July 10'
+        }, {
+            name: 'Oxnard',
+            heightInMM: 100,
+            fur: ['grey', 'white'],
+            gender: 'male',
+            dateOfBirth: 'May 3'
+        }, {
+            name: 'Boss',
+            heightInMM: 120,
+            fur: ['brown', 'white'],
+            gender: 'male',
+            dateOfBirth: 'Spetember 21'
+        }, {
+            name: 'Snoozer',
+            heightInMM: 85,
+            fur: ['brown', 'white', 'pink'],
+            gender: 'male',
+            dateOfBirth: 'January 14'
+        }
+    ];
+
+    function getTallestHamster(arr) {
+        return arr.reduce((acc, current) => acc.heightInMM > current.heightInMM ? acc : current);
+    }
+
+    console.group('05/09');
+    console.log(getTallestHamster(hamsters));
+    console.groupEnd();
+
+    // ############################## Warmup 05/10 ############################## //
+    function getMostColorfulHamster(arr) {
+        return arr.reduce((acc, curr) => acc.fur.length > curr.fur.length ? acc : curr);
+    }
+
+    console.group('05/10');
+    console.log(getMostColorfulHamster(hamsters));
+    console.groupEnd();
+
+    // ############################## Warmup 05/11 ############################## //
+    function makeObjectFromString(str) {
+
+        return {
+            string: str,
+            size: str.length,
+            containsLettersFromRSTLNE: ['r', 's', 't', 'l', 'n', 'e'].some((letter) => str.toLowerCase().includes(letter)),
+            isOneWord: str.split(' ').length <= 1
+        };
+    }
+
+    console.group('05/11');
+    console.log(makeObjectFromString('tacocat'));
+    console.log(makeObjectFromString('John Jacob'));
+    console.groupEnd();
+
+
 }());
