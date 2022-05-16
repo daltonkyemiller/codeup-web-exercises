@@ -5,6 +5,11 @@
         <title>DOM: Query and Modify</title>
     </head>
     <body>
+        <button id="mainHeaderBtn">Change the Main Header</button>
+        <button id="subHeaderBtn">Change Sub Header Color</button>
+        <button id="liColorBtn">Change Every Other li to Grey</button>
+        <button id="dbidBlueBtn">Change dbid to Blue</button>
+        <button id="accomplishMissionBtn">Win.</button>
 
         <h1 id="main-header">Hello World!</h1>
         <ul>
@@ -28,34 +33,49 @@
         <script>
             (function () {
                 'use strict';
-                // Get the main header element by id
-                let mainHeader = document.getElementById('main-header');
+                const mainHeaderBtn = document.getElementById('mainHeaderBtn');
+                const subHeaderBtn = document.getElementById('subHeaderBtn');
+                const liColorBtn = document.getElementById('liColorBtn');
+                const dbidBlueBtn = document.getElementById('dbidBlueBtn');
+                const accomplishMissionBtn = document.getElementById('accomplishMissionBtn');
 
-                // Set inner html of mainHeader to "JavaScript is Cool"
-                mainHeader.innerHTML = 'JavaScript is Cool';
+                mainHeaderBtn.addEventListener('click', () => {
+                    // Get the main header element by id
+                    let mainHeader = document.getElementById('main-header');
+                    // Set inner html of mainHeader to "JavaScript is Cool"
+                    mainHeader.innerHTML = 'JavaScript is Cool';
+                });
 
-                // Get the sub header element by id
-                let subHeader = document.getElementById('sub-header');
+                subHeaderBtn.addEventListener('click', () => {
+                    // Get the sub header element by id
+                    let subHeader = document.getElementById('sub-header');
 
-                // Set the text color of subHeader to blue
-                subHeader.style.color = 'blue';
+                    // Set the text color of subHeader to blue
+                    subHeader.style.color = 'blue';
 
-                // Get all list items
-                let listItems = document.getElementsByTagName('li');
+                });
+                liColorBtn.addEventListener('click', () => {
+                    // Get all list items
+                    let listItems = document.getElementsByTagName('li');
 
-                // Set text color on every other list item to grey
-                for (let i = 0; i < listItems.length; i += 2) {
-                    listItems[i].style.color = 'grey';
-                }
+                    // Set text color on every other list item to grey
+                    for (let i = 0; i < listItems.length; i += 2) {
+                        listItems[i].style.color = 'grey';
+                    }
+                });
 
-                // Set text color of li with dbid = 1 to blue
-                document.querySelector('li[data-dbid="1"]').style.color = 'blue';
+                dbidBlueBtn.addEventListener('click', () => {
+                    // Set text color of li with dbid = 1 to blue
+                    document.querySelector('li[data-dbid="1"]').style.color = 'blue';
+                });
 
-                // Get all elements with class name sub-paragraph
-                let subParagraphs = document.getElementsByClassName('sub-paragraph');
+                accomplishMissionBtn.addEventListener('click', () => {
+                    // Get all elements with class name sub-paragraph
+                    let subParagraphs = document.getElementsByClassName('sub-paragraph');
 
-                // Change the text in the first sub-paragraph to "Mission Accomplished!"
-                subParagraphs[0].innerText = 'Mission Accomplished!';
+                    // Change the text in the first sub-paragraph to "Mission Accomplished!"
+                    subParagraphs[0].innerText = 'Mission Accomplished!';
+                });
             })();
         </script>
     </body>
