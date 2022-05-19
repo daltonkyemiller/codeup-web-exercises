@@ -64,11 +64,23 @@
             <p id="madLib">Hello</p>
         </div>
         <script>
+            const bgColor = localStorage.getItem('bgColor');
+            document.body.style.backgroundColor = bgColor;
 
             // Select the first div with the class of "question", and change the font color to the users input.
             const userColor = prompt('What is your favorite color?');
             const firstDiv = document.querySelector('.question');
             firstDiv.style.color = userColor;
+
+            // ############################## Warmup 05/18 ############################## //
+            const changeColorBtn = document.querySelector('#changeColor');
+            const colorInput = document.querySelector('#color');
+            colorInput.value = bgColor;
+            changeColorBtn.addEventListener('click', (e) => {
+                e.preventDefault();
+                localStorage.setItem('bgColor', colorInput.value);
+                document.body.style.backgroundColor = colorInput.value;
+            });
 
         </script>
     </body>

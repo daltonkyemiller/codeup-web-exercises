@@ -7,8 +7,7 @@
     <body>
         <button id="mainHeaderBtn">Change the Main Header</button>
         <button id="subHeaderBtn">Change Sub Header Color</button>
-        <button id="liColorBtn">Change Every Other li to Grey</button>
-        <button id="dbidBlueBtn">Change dbid to Blue</button>
+        <button id="liColorBtn">Change lis</button>
         <button id="accomplishMissionBtn">Win.</button>
 
         <h1 id="main-header">Hello World!</h1>
@@ -59,15 +58,13 @@
                     let listItems = document.getElementsByTagName('li');
 
                     // Set text color on every other list item to grey
-                    for (let i = 0; i < listItems.length; i += 2) {
+                    for (let i = 1; i < listItems.length - 1; i += 2) {
                         listItems[i].style.color = 'grey';
                     }
-                });
-
-                dbidBlueBtn.addEventListener('click', () => {
                     // Set text color of li with dbid = 1 to blue
                     document.querySelector('li[data-dbid="1"]').style.color = 'blue';
                 });
+
 
                 accomplishMissionBtn.addEventListener('click', () => {
                     // Get all elements with class name sub-paragraph
