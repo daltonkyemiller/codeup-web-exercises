@@ -25,15 +25,17 @@
             <p>Lorem ipsum dolor sit amet.</p>
         </div>
         <div class="question">
-            <h1>Question 1</h1>
+            <h1>Change bg color</h1>
             <input type="color" id="color">
             <button type="button" id="changeColor">Button!</button>
         </div>
 
         <div class="question">
             <h1>Question 2</h1>
-            <input type="text" id="todo">
-            <button type="button" id="addTodo">Add Todo</button>
+            <form>
+                <input type="text" id="todo">
+                <button type="button" id="addTodo">Add Todo</button>
+            </form>
             <ul id="todosList">
             </ul>
         </div>
@@ -64,6 +66,8 @@
             <p id="madLib">Hello</p>
         </div>
         <script>
+
+
             const bgColor = localStorage.getItem('bgColor');
             document.body.style.backgroundColor = bgColor;
 
@@ -81,6 +85,32 @@
                 localStorage.setItem('bgColor', colorInput.value);
                 document.body.style.backgroundColor = colorInput.value;
             });
+
+            // ############################## Warmup 05/19 ############################## //
+            const todoInput = document.querySelector('#todo');
+            const todoBtn = document.querySelector('#addTodo');
+            const todosList = document.querySelector('#todosList');
+            let todos = JSON.parse(localStorage.getItem('todos'));
+            if (todos === null) {
+                todos = [];
+                localStorage.setItem('todos', JSON.stringify(todos));
+            }
+            todosList.innerHTML = todos.map(todo => `<li>${todo.name}</li>`).toString().replaceAll(',', '');
+
+
+            const addTodo = (e) => {
+                e.preventDefault();
+                const newTodo = { id: todos.length + 1, name: todoInput.value };
+                if (todos.filter(todo => todo.name === newTodo.name).length > 0) return alert('todo already exists');
+                todos.push(newTodo);
+                localStorage.setItem('todos', JSON.stringify(todos));
+                todosList.innerHTML += `<li>${todoInput.value}</li>`;
+                todoInput.value = '';
+
+            };
+
+            todoBtn.addEventListener('click', addTodo);
+            todoBtn.parentNode.addEventListener('submit', addTodo);
 
         </script>
     </body>
