@@ -1,0 +1,56 @@
+@import "../defaults.css";
+@import "vars.css";
+
+@import "anims.css";
+@import "crt.css";
+@import "konami.css";
+
+@font-face {
+	font-family: 'Konami';
+	src: url("../../assets/fonts/KonSystem-YB8j.ttf");
+}
+
+
+body {
+	background: #111;
+	display: flex;
+	justify-content: center;
+	height: 100vh;
+	align-items: center;
+	overflow: hidden;
+	padding: 3em;
+}
+
+html {
+	color: white;
+}
+
+header {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+
+}
+
+main {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	flex-basis: 100%;
+	justify-content: center;
+}
+
+h1 {
+	font-family: Konami, sans-serif;
+
+}
+
+h2 {
+	font-family: Noto Sans JP, serif;
+	color: white;
+	writing-mode: vertical-lr;
+}
+
+
+
+

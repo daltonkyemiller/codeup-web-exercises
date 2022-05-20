@@ -1,5 +1,3 @@
-import { randomBetween } from '../playground/utils/utils.js';
-
 $(() => {
     const Card = (title, desc, { id } = {}) => {
         //language=HTML
@@ -29,8 +27,13 @@ $(() => {
 
     $('main').append(cards.map((card, idx) => Card(card.title, card.desc, { id: card.id })));
     $('.codeup').css({ border: '1px solid red' });
-    $('li').css({ fontSize: '20px' });
+    // $('li').css({ fontSize: '20px' });
     $('h1, p, li').css({ backgroundColor: 'yellow' });
-    alert($('h1').text());
+    // alert($('h1').text());
+    $('#codeupChangeBtn').click(() => {
+        $('h1.codeup:nth-of-type(1)').css({ backgroundColor: 'red' });
+    });
+    $('p').dblclick((e) => $(e.target).css({ fontSize: '18px' }));
+    $('li').hover((e) => $(e.target).css({ color: 'red' }), (e) => $(e.target).css({ color: 'black' }));
 
 });

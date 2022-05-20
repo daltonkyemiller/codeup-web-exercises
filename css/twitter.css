@@ -1,5 +1,5 @@
 :root {
-	--main-bg: #E6ECF0;
+	--crt-bg: #E6ECF0;
 	--link-color: #3B94D9;
 	--main-link-color: #848487;
 	--light-bg: #FFF;
@@ -11,7 +11,7 @@
 }
 
 body, html {
-	background-color: var(--main-bg);
+	background-color: var(--crt-bg);
 	height: 100%;
 	width: 100%;
 	margin: 0;

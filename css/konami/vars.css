@@ -1,0 +1,11 @@
+:root {
+	--crt-bg: blue;
+
+	/*---CRT---*/
+	--flicker-amt: .1;
+	--flicker-duration: .15s;
+	--channel-wiggle-duration: .05s;
+	--channel-wiggle-amt: 3px;
+	--crt-border-radius: 10px;
+
+}
