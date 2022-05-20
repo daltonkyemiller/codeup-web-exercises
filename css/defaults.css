@@ -12,7 +12,7 @@
 	font-family: sans-serif;
 }
 
-body * {
+body {
 	animation: fadeIn 500ms forwards;
 }
 

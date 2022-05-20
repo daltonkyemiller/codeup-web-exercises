@@ -1,4 +1,37 @@
 $(() => {
+    const CRTIFY = (element) => {
+        const container = $('<div class="vhs-main-container"></div>');
+
+
+        let blueVersion = element.clone().addClass('vhs-blue');
+        let greenVersion = element.clone().addClass('vhs-green');
+        let redVersion = element.clone().addClass('vhs-red');
+
+
+        const hasBg =
+            element.css('background-color') === 'rgba(0,0,0,0)'
+                ? true
+                : element.children().length !== 0
+                    ? element.children().toArray().every(child => $(child).css('background-color') === 'rgba(0,0,0,0)')
+                    : false;
+        container.append(redVersion, blueVersion, greenVersion);
+        let textContainer = element.text() !== '' ? !hasBg ? 'vhs-text-container' : '' : '';
+        redVersion.wrap(`<div class="${textContainer} vhs-container vhs-red-container"></div>`);
+        greenVersion.wrap(`<div class="${textContainer} vhs-container vhs-green-container"></div>`);
+        blueVersion.wrap(`<div class="${textContainer} vhs-container vhs-blue-container"></div>`);
+
+        return container;
+    };
+
+    const initVHS = () => {
+        const vhsItems = $('.vhs');
+        vhsItems.each(function (item) {
+            $(this).replaceWith(CRTIFY($(this)));
+        });
+    };
+    initVHS();
+
+
     const KEYCODES = {
         LEFT: { CODE: 37, CHAR: '⬅' },
         UP: { CODE: 38, CHAR: '⬆' },
@@ -8,29 +41,6 @@ $(() => {
         A: { CODE: 65, CHAR: 'A' },
         B: { CODE: 66, CHAR: 'B' },
     };
-
-    const initVHS = () => {
-        const vhsItems = $('.vhs');
-        vhsItems.each(function (item) {
-            const container = $('<div class="vhs-main-container"></div>');
-            $(this).after(container);
-
-
-            let blueVersion = $(this).clone().addClass('vhs-blue');
-            let greenVersion = $(this).clone().addClass('vhs-green');
-            let redVersion = $(this).addClass('vhs-red');
-
-            container.append(redVersion, blueVersion, greenVersion);
-
-            let textContainer = $(this).text() !== '' ? 'vhs-text-container' : '';
-            redVersion.wrap(`<div class="${textContainer} vhs-container vhs-red-container"></div>`);
-            greenVersion.wrap(`<div class="${textContainer} vhs-container vhs-green-container"></div>`);
-            blueVersion.wrap(`<div class="${textContainer} vhs-container vhs-blue-container"></div>`);
-
-        });
-    };
-    initVHS();
-
     const konamiCode = [
         KEYCODES.UP,
         KEYCODES.UP,
@@ -43,18 +53,19 @@ $(() => {
         KEYCODES.B,
         KEYCODES.A];
     const keysPressed = [];
-    const step = $('#step');
+    const stepEl = $('#step');
+    const gif = `<div class="window"><img src="https://media.giphy.com/media/qyjexFwQwJp9yUvMxq/giphy.gif" alt=""></div>`;
 
+    stepEl.text(konamiCode[0].CHAR);
+    stepEl.html(CRTIFY(stepEl));
     const handleKeyPress = (e) => {
-        switch (e.keyCode) {
-            case KEYCODES.ENTER.CODE:
-                if (konamiCode.every((val, idx) => val.CODE === keysPressed[idx])) $('#msg').html('NOICE').addClass('zoom-in');
-                else $('#msg').html('ABSOLUTELY NOT').addClass('zoom-in');
-                break;
-            default:
-                keysPressed.push(e.keyCode);
-                $('#step').html(e.key);
-                break;
+        keysPressed.push(e.keyCode);
+        if (konamiCode[keysPressed.length - 1].CODE === e.keyCode) {
+            const code = konamiCode[keysPressed.length];
+            stepEl.html(CRTIFY(stepEl.html(code ? code.CHAR : gif)));
+        } else {
+            stepEl.html(CRTIFY(stepEl.text('⚠')));
+            keysPressed.splice(0, keysPressed.length);
         }
 
     };

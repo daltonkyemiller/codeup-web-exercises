@@ -1,5 +1,6 @@
 
 #step {
-	animation: fadeIn .25s forwards;
-}
+	font-size: 10vmax;
 
+	margin: 0;
+}

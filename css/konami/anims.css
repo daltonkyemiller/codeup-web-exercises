@@ -66,7 +66,7 @@
 
 @keyframes redChannelWiggle {
 	from {
-		transform: translateY(var(--channel-wiggle-amt));
+		transform: translate(var(--channel-wiggle-amt-x), var(--channel-wiggle-amt-y));
 	}
 	to {
 		transform: translateY(0);
@@ -76,7 +76,7 @@
 
 @keyframes blueChannelWiggle {
 	from {
-		transform: translateY(calc(var(--channel-wiggle-amt) * -1));
+		transform: translate(calc(var(--channel-wiggle-amt-x) * -1), calc(var(--channel-wiggle-amt-y) * -1));
 	}
 	to {
 		transform: translateY(0);
@@ -96,5 +96,5 @@
 
 
 .zoom-in {
-	animation: zoomIn .5s forwards steps(10);
+	animation: zoomIn 250ms forwards steps(4);
 }
