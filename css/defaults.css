@@ -1,0 +1,23 @@
+@keyframes fadeIn {
+	from {
+		transform: translateX(10em);
+		opacity: 0;
+	}
+	to {
+		transform: translateX(0);
+		opacity: 1;
+	}
+}
+
+* {
+	box-sizing: border-box;
+	font-family: sans-serif;
+}
+
+body * {
+	animation: fadeIn 500ms forwards;
+}
+
+ul {
+	display: inline-block;
+}

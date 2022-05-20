@@ -1,0 +1,26 @@
+@import "../defaults.css";
+@import "card.css";
+
+body {
+	padding: 3em;
+
+}
+
+header {
+	text-align: center;
+
+	display: flex;
+	flex-direction: column;
+	margin: 0 auto;
+}
+
+main {
+	gap: 1em;
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+}
+
+.container {
+	flex-basis: 100%;
+}
