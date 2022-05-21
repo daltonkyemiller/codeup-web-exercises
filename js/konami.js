@@ -54,7 +54,7 @@ $(() => {
         KEYCODES.A];
     const keysPressed = [];
     const stepEl = $('#step');
-    const gif = `<div class="window"><img src="https://media.giphy.com/media/qyjexFwQwJp9yUvMxq/giphy.gif" alt=""></div>`;
+    const gif = `<div class="window"><img src="https://media.giphy.com/media/w8jI6Vv31Hf8Y/giphy.gif" alt=""></div>`;
 
     stepEl.text(konamiCode[0].CHAR);
     stepEl.html(CRTIFY(stepEl));

@@ -51,7 +51,7 @@ h1, h2 {
 }
 
 img {
-	width: 50%;
+	max-width: 75%;
 }
 
 .konami {
