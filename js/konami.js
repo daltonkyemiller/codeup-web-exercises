@@ -7,9 +7,13 @@ $(() => {
      * @returns A jQuery object containing a div with three channel split divs inside of it.
      */
     const CRTIFY = (element) => {
-        const elHasBg = (el) => {
-            const els = [...el.get(), ...el.find('*').toArray()];
-            return els.every(el => $(el).css('background-color') === 'rgba(0,0,0,0)' || $(el).css('background-color') === '');
+        const isTextElementWithoutBg = (el) => {
+            const els = [...el.get(), ...el.find('*').get()];
+            return els.every(el => {
+                let hasBg = $(el).css('background-color') !== 'rgba(0, 0, 0, 0)' && $(el).css('background-color') !== '';
+                let hasText = $(el).text().trim() !== '';
+                return hasText && !hasBg;
+            });
         };
 
         // Create a container for the element
@@ -22,13 +26,13 @@ $(() => {
 
 
         // Checking if the element or it's children have a background color
-        const hasBg = elHasBg(element);
+        const isText = isTextElementWithoutBg(element);
 
         // Put our three versions into the container
         container.append(redVersion, blueVersion, greenVersion);
 
         // If the element has text inside it, and it doesn't have a background, give it another class
-        const textContainer = (element.text() !== '' && !hasBg) ? 'vhs-text-container' : '';
+        const textContainer = (isText ? 'vhs-text-container' : '');
         redVersion.wrap(`<div class="${textContainer} vhs-container vhs-red-container"></div>`);
         greenVersion.wrap(`<div class="${textContainer} vhs-container vhs-green-container"></div>`);
         blueVersion.wrap(`<div class="${textContainer} vhs-container vhs-blue-container"></div>`);
@@ -46,7 +50,7 @@ $(() => {
     };
     initVHS();
 
-    // Key code objects, with their unicode
+    // Key code objects, with their unicode character
     const KEYCODES = {
         LEFT: { CODE: 37, CHAR: '⬅' },
         UP: { CODE: 38, CHAR: '⬆' },
@@ -76,6 +80,7 @@ $(() => {
     // The element displaying the current step for the user
     const stepEl = $('#step');
     // The element displayed when the sequence is inputted correctly
+
     //language=HTML
     const winner = `
         <div>
@@ -87,7 +92,8 @@ $(() => {
 
     // Set the step to the first one
     stepEl.text(konamiCode[0].CHAR);
-    // Then CRTify the elemnt
+
+    // Then CRTify the element
     stepEl.html(CRTIFY(stepEl));
 
     /**
@@ -97,19 +103,19 @@ $(() => {
      */
     const handleKeyPress = (e) => {
         keysPressed.push(e.keyCode);
-
+        /* Checking if the key pressed is the next key in the konami code. If it is, it displays the next step. If it
+        isn't, it displays an error message and resets the user. */
         if (konamiCode[keysPressed.length - 1].CODE === e.keyCode) {
             const nextStep = konamiCode[keysPressed.length];
+            // If next step is undefined, display end message
             if (nextStep === undefined) {
                 const window = $('<div class="window"></div>');
                 window.append($(winner));
-                stepEl.html('');
-                setInterval(() => {
-                    stepEl.append(CRTIFY(window));
-                }, 1000);
+                stepEl.html(CRTIFY(window));
                 keysPressed.splice(0, keysPressed.length);
-            } else stepEl.html(CRTIFY(stepEl.text(nextStep.CHAR)));
+            } else stepEl.html(CRTIFY(stepEl.text(nextStep.CHAR))); // Otherwise, display the CRTified next step
         } else {
+            // Displaying error if the wrong keycode is pressed
             stepEl.html(CRTIFY(stepEl.text('⚠')));
             keysPressed.splice(0, keysPressed.length);
         }
