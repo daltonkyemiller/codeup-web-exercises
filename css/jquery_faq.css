@@ -24,7 +24,6 @@ dd {
 
 
 .invisible {
-
 	color: rgba(0, 0, 0, 0);
 	background: black;
 	pointer-events: none;
@@ -35,3 +34,27 @@ dd {
 	background: yellow;
 }
 
+#last-li-highlight {
+	margin-top: 1em;
+}
+
+#bonus-photo-switcher {
+	display: flex;
+	margin-top: .5em;
+	justify-content: center;
+	gap: .5em;
+}
+
+.frame {
+	display: flex;
+	flex-direction: column;
+	width: 50%;
+	border: 20px solid black;
+}
+
+.frame img {
+	object-fit: cover;
+	object-position: center;
+	height: 100%;
+	width: 100%;
+}
