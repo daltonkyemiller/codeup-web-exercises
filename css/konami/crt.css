@@ -11,30 +11,31 @@
 
 /* Scanlines */
 #crt::before {
-	content: " ";
+	content: "";
 	display: block;
 	position: absolute;
 	inset: 0;
-	background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%);
+	background: linear-gradient(rgba(0, 0, 0, 0) 50%, rgba(0, 0, 0, 0.25) 50%);
+	background-size: 100% 2px;
 	z-index: 2;
-	background-size: 100% 2px, 3px 100%;
 	pointer-events: none;
 	border-radius: var(--crt-border-radius);
 
 
 }
 
+/* Flicker */
 #crt::after {
-	content: " ";
+	content: "";
 	display: block;
 	position: absolute;
 	inset: 0;
 	background: rgba(0, 0, 0, var(--flicker-amt));
-	opacity: 0;
-	z-index: 2;
+	z-index: 5;
 	pointer-events: none;
 	animation: flicker var(--flicker-duration) infinite;
 	border-radius: var(--crt-border-radius);
+
 
 }
 
@@ -106,8 +107,6 @@
 	position: absolute;
 	content: '';
 	inset: 0;
-	width: 100%;
-	height: 100%;
 	mix-blend-mode: multiply;
 }
 
@@ -155,7 +154,7 @@
 
 .window::before {
 	position: absolute;
-	content: 'You won!';
+	content: 'Singles in your area!';
 	color: white;
 	padding: .1em 0 .1em .2em;
 	border-radius: 5px;
