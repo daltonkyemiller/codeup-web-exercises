@@ -1,28 +1,43 @@
 $(() => {
+
+
+    /**
+     * Take the element, clone it three times, and wrap each clone in a div with a different class
+     * @param element - The jQuery element you want to CRTify
+     * @returns A jQuery object containing a div with three channel split divs inside of it.
+     */
     const CRTIFY = (element) => {
+        const elHasBg = (el) => {
+            const els = [...el.get(), ...el.find('*').toArray()];
+            return els.every(el => $(el).css('background-color') === 'rgba(0,0,0,0)' || $(el).css('background-color') === '');
+        };
+
+        // Create a container for the element
         const container = $('<div class="vhs-main-container"></div>');
 
-
-        let blueVersion = element.clone().addClass('vhs-blue');
-        let greenVersion = element.clone().addClass('vhs-green');
+        // Clone the element three times to split red, green and blue channels
         let redVersion = element.clone().addClass('vhs-red');
+        let greenVersion = element.clone().addClass('vhs-green');
+        let blueVersion = element.clone().addClass('vhs-blue');
 
 
-        const hasBg =
-            element.css('background-color') === 'rgba(0,0,0,0)'
-                ? true
-                : element.children().length !== 0
-                    ? element.children().toArray().every(child => $(child).css('background-color') === 'rgba(0,0,0,0)')
-                    : false;
+        // Checking if the element or it's children have a background color
+        const hasBg = elHasBg(element);
+
+        // Put our three versions into the container
         container.append(redVersion, blueVersion, greenVersion);
-        let textContainer = element.text() !== '' ? !hasBg ? 'vhs-text-container' : '' : '';
+
+        // If the element has text inside it, and it doesn't have a background, give it another class
+        const textContainer = (element.text() !== '' && !hasBg) ? 'vhs-text-container' : '';
         redVersion.wrap(`<div class="${textContainer} vhs-container vhs-red-container"></div>`);
         greenVersion.wrap(`<div class="${textContainer} vhs-container vhs-green-container"></div>`);
         blueVersion.wrap(`<div class="${textContainer} vhs-container vhs-blue-container"></div>`);
 
+        //
         return container;
     };
 
+    // Loops through all items with a vhs class and replaces them with their CRTified version
     const initVHS = () => {
         const vhsItems = $('.vhs');
         vhsItems.each(function (item) {
@@ -31,7 +46,7 @@ $(() => {
     };
     initVHS();
 
-
+    // Key code objects, with their unicode
     const KEYCODES = {
         LEFT: { CODE: 37, CHAR: '⬅' },
         UP: { CODE: 38, CHAR: '⬆' },
@@ -41,6 +56,8 @@ $(() => {
         A: { CODE: 65, CHAR: 'A' },
         B: { CODE: 66, CHAR: 'B' },
     };
+
+    // Konami Code Sequence
     const konamiCode = [
         KEYCODES.UP,
         KEYCODES.UP,
@@ -51,18 +68,47 @@ $(() => {
         KEYCODES.LEFT,
         KEYCODES.RIGHT,
         KEYCODES.B,
-        KEYCODES.A];
-    const keysPressed = [];
-    const stepEl = $('#step');
-    const gif = `<div class="window"><img src="https://media.giphy.com/media/w8jI6Vv31Hf8Y/giphy.gif" alt=""></div>`;
+        KEYCODES.A,
+        KEYCODES.ENTER];
 
+    // Keys the user has pressed
+    const keysPressed = [];
+    // The element displaying the current step for the user
+    const stepEl = $('#step');
+    // The element displayed when the sequence is inputted correctly
+    //language=HTML
+    const winner = `
+        <div>
+            <img src="https://media.giphy.com/media/w8jI6Vv31Hf8Y/giphy.gif" alt="">
+            <audio autoplay>
+                <source src="/assets/audio/youwin.mp3" type="audio/mpeg">
+            </audio>
+        </div>`;
+
+    // Set the step to the first one
     stepEl.text(konamiCode[0].CHAR);
+    // Then CRTify the elemnt
     stepEl.html(CRTIFY(stepEl));
+
+    /**
+     * Takes the key pressed and checks if it's the next key in the konami code. If it is, it displays the next
+     * step. If it isn't, it displays an error message and resets the user.
+     * @param e - The event object
+     */
     const handleKeyPress = (e) => {
         keysPressed.push(e.keyCode);
+
         if (konamiCode[keysPressed.length - 1].CODE === e.keyCode) {
-            const code = konamiCode[keysPressed.length];
-            stepEl.html(CRTIFY(stepEl.html(code ? code.CHAR : gif)));
+            const nextStep = konamiCode[keysPressed.length];
+            if (nextStep === undefined) {
+                const window = $('<div class="window"></div>');
+                window.append($(winner));
+                stepEl.html('');
+                setInterval(() => {
+                    stepEl.append(CRTIFY(window));
+                }, 1000);
+                keysPressed.splice(0, keysPressed.length);
+            } else stepEl.html(CRTIFY(stepEl.text(nextStep.CHAR)));
         } else {
             stepEl.html(CRTIFY(stepEl.text('⚠')));
             keysPressed.splice(0, keysPressed.length);

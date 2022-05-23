@@ -4,7 +4,10 @@
 	height: 100%;
 	border-radius: var(--crt-border-radius);
 	background: var(--crt-bg);
+	overflow: hidden;
+
 }
+
 
 /* Scanlines */
 #crt::before {
@@ -12,11 +15,12 @@
 	display: block;
 	position: absolute;
 	inset: 0;
-	background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%), linear-gradient(90deg, rgba(255, 0, 0, 0.06), rgba(0, 255, 0, 0.02), rgba(0, 0, 255, 0.06));
+	background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%);
 	z-index: 2;
 	background-size: 100% 2px, 3px 100%;
 	pointer-events: none;
 	border-radius: var(--crt-border-radius);
+
 
 }
 
@@ -25,7 +29,7 @@
 	display: block;
 	position: absolute;
 	inset: 0;
-	background: rgba(18, 16, 16, var(--flicker-amt));
+	background: rgba(0, 0, 0, var(--flicker-amt));
 	opacity: 0;
 	z-index: 2;
 	pointer-events: none;
@@ -48,10 +52,6 @@
 
 }
 
-svg {
-	display: none;
-}
-
 
 /* VHS Elements */
 .vhs-main-container, .vhs-container {
@@ -59,7 +59,7 @@ svg {
 }
 
 .vhs-main-container {
-	animation: zoomIn 250ms forwards steps(6);
+	animation: zoomIn 250ms forwards steps(4);
 
 }
 
@@ -155,7 +155,7 @@ svg {
 
 .window::before {
 	position: absolute;
-	content: 'Window';
+	content: 'You won!';
 	color: white;
 	padding: .1em 0 .1em .2em;
 	border-radius: 5px;

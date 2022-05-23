@@ -1,66 +1,66 @@
 @keyframes flicker {
 	0% {
-		opacity: 0.27861;
+		opacity: 0.22;
 	}
 	5% {
-		opacity: 0.34769;
+		opacity: 0.50;
 	}
 	10% {
-		opacity: 0.23604;
+		opacity: 0.42;
 	}
 	15% {
-		opacity: 0.90626;
+		opacity: 0.97;
 	}
 	20% {
-		opacity: 0.18128;
+		opacity: 0.59;
 	}
 	25% {
-		opacity: 0.83891;
+		opacity: 0.25;
 	}
 	30% {
-		opacity: 0.65583;
+		opacity: 0.44;
 	}
 	35% {
-		opacity: 0.67807;
+		opacity: 0.21;
 	}
 	40% {
-		opacity: 0.26559;
+		opacity: 0.44;
 	}
 	45% {
-		opacity: 0.84693;
+		opacity: 0.33;
 	}
 	50% {
-		opacity: 0.96019;
+		opacity: 0.54;
 	}
 	55% {
-		opacity: 0.08594;
+		opacity: 0.80;
 	}
 	60% {
-		opacity: 0.20313;
+		opacity: 0.46;
 	}
 	65% {
-		opacity: 0.71988;
+		opacity: 0.16;
 	}
 	70% {
-		opacity: 0.53455;
+		opacity: 0.19;
 	}
 	75% {
-		opacity: 0.37288;
+		opacity: 0.79;
 	}
 	80% {
-		opacity: 0.71428;
+		opacity: 0.91;
 	}
 	85% {
-		opacity: 0.70419;
+		opacity: 0.39;
 	}
 	90% {
-		opacity: 0.7003;
+		opacity: 0.07;
 	}
 	95% {
-		opacity: 0.36108;
+		opacity: 0.38;
 	}
 	100% {
-		opacity: 0.24387;
+		opacity: 0.31;
 	}
 }
 
@@ -95,6 +95,3 @@
 }
 
 
-.zoom-in {
-	animation: zoomIn 250ms forwards steps(4);
-}
