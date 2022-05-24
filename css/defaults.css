@@ -32,13 +32,11 @@ button {
 	border: 1px solid black;
 	transition: all 500ms;
 	cursor: pointer;
-
 }
 
 button:hover {
 	color: white;
 	background: black;
-
 }
 
 button:focus {

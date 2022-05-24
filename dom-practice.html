@@ -3,7 +3,10 @@
     <head>
         <meta charset="UTF-8">
         <title>Document Object Model</title>
+
         <style>
+			@import "css/defaults.css";
+
 			body {
 				display: flex;
 				flex-direction: column;
@@ -100,7 +103,7 @@
 
             const addTodo = (e) => {
                 e.preventDefault();
-                if (todoInput.value === '') return alert('TODO must not be empty')
+                if (todoInput.value === '') return alert('TODO must not be empty');
                 if (todos.filter(todo => todo.name === todoInput.value).length > 0) return alert('todo already exists');
 
                 const newTodo = { id: todos.length + 1, name: todoInput.value };
@@ -134,6 +137,10 @@
                 }
             };
             toggleButton.addEventListener('click', toggleInterval);
+
+            // ############################## Warmup 05/24 ############################## //
+            const fourthQuest = document.querySelector('div.question:nth-of-type(5)');
+            fourthQuest.addEventListener('mouseenter', () => alert('CONGRATULATIONS ON YOUR NEW CRUISE!'));
 
 
         </script>

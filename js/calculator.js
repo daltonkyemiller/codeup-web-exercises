@@ -1,63 +1,71 @@
-const CalcBtns = {
-    CLEAR: { vals: ['c'], type: 'func' },
-    MODULUS: { vals: ['%'], type: 'func' },
-    DIVIDE: { vals: ['/'], type: 'func' },
-    EQUALS: { vals: ['='], type: 'func' },
-    DECIMAL: { vals: ['.'], type: 'func' },
-    ADD: { vals: ['+'], type: 'func' },
-    SUBTRACT: { vals: ['-'], type: 'func' },
-    MULTIPLY: { vals: ['*', 'x'], type: 'func' },
-    OPEN_PARENTHESES: { vals: ['('], type: 'func' },
-    CLOSED_PARENTHESES: { vals: [')'], type: 'func' },
-    ZERO: { vals: ['0'], type: 'num' },
-    ONE: { vals: ['1'], type: 'num' },
-    TWO: { vals: ['2'], type: 'num' },
-    THREE: { vals: ['3'], type: 'num' },
-    FOUR: { vals: ['4'], type: 'num' },
-    FIVE: { vals: ['5'], type: 'num' },
-    SIX: { vals: ['6'], type: 'num' },
-    SEVEN: { vals: ['7'], type: 'num' },
-    EIGHT: { vals: ['8'], type: 'num' },
-    NINE: { vals: ['9'], type: 'num' },
+const CALC_OPERATORS = {
+    CLEAR: ['c'],
+    MODULUS: ['%'],
+    DIVIDE: ['/'],
+    EQUALS: ['='],
+    ADD: ['+'],
+    SUBTRACT: ['-'],
+    MULTIPLY: ['*', 'x'],
+};
+const CALC_NUMBERS = {
+    ZERO: ['0'],
+    ONE: ['1'],
+    TWO: ['2'],
+    THREE: ['3'],
+    FOUR: ['4'],
+    FIVE: ['5'],
+    SIX: ['6'],
+    SEVEN: ['7'],
+    EIGHT: ['8'],
+    NINE: ['9'],
+    DECIMAL: ['.'],
+
 };
 
-
-const handleCalcButtonClick = (e) => {
-    const targetText = e.target.innerText.toLowerCase();
-    const result = e.target.parentNode.parentNode.querySelector('.display > .result');
-    const calcButtonKey = Object.keys(CalcBtns).filter(key => CalcBtns[key].vals.includes(targetText))[0];
-    const calcButton = CalcBtns[calcButtonKey];
-
-    if (Object.is(calcButton, CalcBtns.CLEAR)) return result.value = '';
-    if (Object.is(calcButton, CalcBtns.EQUALS)) return result.value = eval(result.value);
-
-
-    result.value += targetText;
+const CALC_INPUTS = {
+    ...CALC_OPERATORS,
+    ...CALC_NUMBERS
 };
 
-const handleTypeIntoResult = (e) => {
-    const key = e.key.toLowerCase();
-    if (CalcBtns.CLEAR.vals.includes(key)) return e.target.value = '';
+const changeResult = (calculator, changeTo) => {
+    const result = calculator.querySelector('.result');
 
-    const allowedChars = Object.values(CalcBtns).map(button => button.vals).flat();
-    if (!allowedChars.includes(key)) e.target.value = e.target.value.replaceAll(key, '');
-    if (key === 'enter') {
-        try {
-            const result = eval(e.target.value);
-            console.log(result);
-            e.target.value = result;
-        } catch (error) {
-            e.target.value = 'ERROR';
-        }
+    try {
+        if (CALC_OPERATORS.EQUALS.includes(changeTo)) return result.value = eval(result.value);
+        if (CALC_OPERATORS.CLEAR.includes(changeTo)) return result.value = '';
+        if (Object.values(CALC_OPERATORS).flat().includes(changeTo)) return result.value += ` ${changeTo} `;
+        if (Object.values(CALC_NUMBERS).flat().includes(changeTo)) return result.value += changeTo;
+    } catch (error) {
+        result.value = 'ERROR';
     }
+
 };
+
 
 const calcButtons = document.querySelectorAll('.button');
 const calcResults = document.querySelectorAll('.display > .result');
 
+let meta = false;
+const handleInputKeyDown = (e) => {
+    const key = e.key.toLowerCase();
+    if (key === 'meta') meta = true;
+    if (key !== 'backspace' && (!meta)) e.preventDefault();
+    changeResult(e.target.parentNode.parentNode, key === 'enter' ? '=' : key);
+};
+const handleButtonClick = (e) => {
+    changeResult(e.target.parentNode.parentNode, e.target.innerText.toLowerCase());
+};
+
+const handleInputKeyUp = (e) => {
+    const key = e.key.toLowerCase();
+    if (key === 'meta') meta = false;
+};
+
+
 for (const result of calcResults) {
-    result.addEventListener('keyup', handleTypeIntoResult);
+    result.addEventListener('keydown', handleInputKeyDown);
+    result.addEventListener('keyup', handleInputKeyUp);
 }
 for (const button of calcButtons) {
-    button.addEventListener('click', handleCalcButtonClick);
+    button.addEventListener('click', handleButtonClick);
 }
