@@ -24,30 +24,37 @@ $(() => {
     });
 
     $('.swap').click(function () {
+        // Get the container of the frames
         const frameContainer = $(this).parent().parent();
-        const container = $(this).parent();
-        const img = container.find('img');
-        const index = frameContainer.children().index(container);
-        const prevFrame = index === 0
-            ? frameContainer.children().eq(frameContainer.children().length - 1)
-            : frameContainer.children().eq(index - 1);
+        // Get the current frame
+        const currFrame = $(this).parent();
+        const currImg = currFrame.find('img');
+        const currIndex = frameContainer.children().index(currFrame);
 
-        const nextFrame = frameContainer.children().eq((index + 1) % frameContainer.children().length);
+        // If the current frame index is 0, set the previous frame to the last frame, else set it to the previous frame
+        const prevFrame = currIndex === 0
+            ? frameContainer.children().eq(frameContainer.children().length - 1)
+            : frameContainer.children().eq(currIndex - 1);
+
+        // If the current frame index is the
+        const nextFrame = currIndex === (frameContainer.children().length - 1)
+            ? frameContainer.children().eq(0)
+            : frameContainer.children().eq(currIndex + 1);
+        
         const nextSrc = nextFrame.find('img').attr('src');
         const prevSrc = prevFrame.find('img').attr('src');
-
-        if (index === 0) {
-            nextFrame.find('img').attr('src', img.attr('src'));
-            img.attr('src', nextSrc);
-        } else if (index === 1) {
+        if (currIndex === 0) {
+            nextFrame.find('img').attr('src', currImg.attr('src'));
+            currImg.attr('src', nextSrc);
+        } else if (currIndex === 1) {
             const switchWith = Math.random() > 0.5
                 ? { frame: nextFrame, src: nextSrc }
                 : { frame: prevFrame, src: prevSrc };
-            switchWith.frame.find('img').attr('src', img.attr('src'));
-            img.attr('src', switchWith.src);
+            switchWith.frame.find('img').attr('src', currImg.attr('src'));
+            currImg.attr('src', switchWith.src);
         } else {
-            prevFrame.find('img').attr('src', img.attr('src'));
-            img.attr('src', prevSrc);
+            prevFrame.find('img').attr('src', currImg.attr('src'));
+            currImg.attr('src', prevSrc);
         }
 
     });
