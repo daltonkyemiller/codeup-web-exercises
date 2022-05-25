@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>Mapbox API</title>
+
+        <script src='https://api.mapbox.com/mapbox-gl-js/v2.8.2/mapbox-gl.js'></script>
+        <link href='https://api.mapbox.com/mapbox-gl-js/v2.8.2/mapbox-gl.css' rel='stylesheet'/>
+        <link rel="stylesheet" href="./css/mapbox_maps_api.css">
+
+    </head>
+    <body>
+        <main>
+            <section>
+                <div id="map"></div>
+
+                <div id="map-options">
+                    <form id="map-search">
+                        <label>
+                            Search:
+                            <input type="text" id="map-search-input">
+                            <button id="map-search-btn"><i class="fa-solid fa-magnifying-glass"></i></button>
+                        </label>
+                    </form>
+                    <label>
+                        Zoom Level
+                        <select id="map-zoom-level">
+                            <option>2x</option>
+                            <option>4x</option>
+                            <option>6x</option>
+                            <option>8x</option>
+                        </select>
+                    </label>
+                </div>
+            </section>
+        </main>
+    </body>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"
+            integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+    <script src="./js/mapbox_maps_api.js" type="module"></script>
+</html>
