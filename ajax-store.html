@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>Online Store</title>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css"
+              integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g=="
+              crossorigin="anonymous" referrerpolicy="no-referrer"/>
+
+        <link rel="stylesheet" href="./css/ajax-store.css">
+    </head>
+    <body>
+        <nav>
+            <div><h1>My Tool Store</h1></div>
+            <ul>
+            </ul>
+        </nav>
+        <header>
+        </header>
+        <main>
+            <div class="inventory">
+                <table id="products">
+                    <thead>
+                    <tr>
+                        <th>Title</th>
+                        <th>Quantity</th>
+                        <th>Price</th>
+                        <th>Categories</th>
+                    </tr>
+                    </thead>
+                    <tbody id="insertProducts"></tbody>
+                </table>
+                <i class="fa-solid fa-arrow-rotate-right" id="reloadInventory"></i>
+            </div>
+        </main>
+
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"
+                integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+        <script src="js/ajax-store.js"></script>
+
+    </body>
+</html>

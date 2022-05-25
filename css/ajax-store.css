@@ -1,0 +1,45 @@
+@import "defaults/defaults.css";
+
+nav {
+	display: flex;
+	align-items: center;
+	gap: 1em;
+
+}
+
+nav ul {
+	gap: .25em;
+	display: flex;
+}
+
+header {
+	display: flex;
+	justify-content: center;
+}
+
+
+main {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+
+}
+
+.inventory {
+	display: flex;
+}
+
+td {
+	text-align: center;
+	padding: .1rem .5rem;
+	border: 1px solid black;
+	animation: bounceIn forwards 500ms;
+}
+
+th {
+	border: 1px solid black;
+}
+
+#reloadInventory {
+	height: 100%;
+}
