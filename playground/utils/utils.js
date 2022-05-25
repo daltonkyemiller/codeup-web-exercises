@@ -7,6 +7,10 @@ const randomColor = () => Math.floor(Math.random() * 16777215).toString(16);
 // Generate random HSL with high saturation and brightness (random pastel color)
 const randomHSL = (b = 90, s = 75) => `hsla(${~~(360 * Math.random())},${s}%,${b}%,1)`;
 
+
+const randomGradient = (b = 75, s = 80, deg = 45) => `linear-gradient(${deg}deg, ${randomHSL(b, s)} 0%, ${randomHSL(b, s)} 100%)`;
+
+
 // Promised based sleep()
 const delay = (ms) => new Promise(r => setTimeout(r, ms));
 
@@ -81,4 +85,4 @@ const animate = async (element, properties = {}, options = {}) => {
 };
 
 
-export { randomBetween, randomColor, randomHSL, prettyString, animate, htmlToElement };
+export { randomBetween, randomColor, randomHSL, randomGradient, prettyString, animate, htmlToElement };

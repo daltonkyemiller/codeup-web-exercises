@@ -1,16 +1,5 @@
 @import "defaults/defaults.css";
 
-nav {
-	display: flex;
-	align-items: center;
-	gap: 1em;
-
-}
-
-nav ul {
-	gap: .25em;
-	display: flex;
-}
 
 header {
 	display: flex;
