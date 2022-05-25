@@ -21,8 +21,12 @@ main {
 td {
 	text-align: center;
 	padding: .1rem .5rem;
-	border: 1px solid black;
 	animation: bounceIn forwards 500ms;
+}
+
+tbody tr:nth-of-type(even) {
+	background: var(--dark-color);
+	color: var(--light-color)
 }
 
 th {
