@@ -1,4 +1,3 @@
-@import "defaults/defaults.css";
 
 :root {
 	--dawn-gradient: linear-gradient(0deg, rgba(131, 58, 180, 1) 0%, rgba(222, 29, 29, 1) 61%, rgba(252, 176, 69, 1) 100%);
@@ -27,19 +26,6 @@
 	}
 }
 
-body {
-	animation: none;
-	margin: 0;
-}
-
-nav {
-	position: relative;
-	padding: 0 .5rem;
-}
-
-main {
-	position: relative;
-}
 
 #bg {
 	position: absolute;
@@ -56,16 +42,16 @@ main {
 	background: var(--dawn-gradient);
 	background-size: 110% 110%;
 	min-height: 100vh;
-	animation: gradient 5s;
+	/*animation: gradient 5s forwards;*/
 }
 
 #clouds {
 	position: absolute;
 	inset: 0;
-	background: url("/img/weather_map/clouds.jpg");
+	background: url("../../img/weather_map/clouds.jpg");
 	background-size: cover;
 	mix-blend-mode: screen;
-	animation: gradient 5s;
+	/*animation: gradient 5s forwards;*/
 
 
 }
@@ -73,7 +59,7 @@ main {
 #stars {
 	position: absolute;
 	inset: 0;
-	background-image: url("/img/weather_map/stars-2.jpg");
+	background-image: url("../../img/weather_map/stars-2.jpg");
 	background-size: cover;
 	background-position: bottom left;
 	mix-blend-mode: screen;
@@ -83,26 +69,3 @@ main {
 
 }
 
-#forecast {
-	display: flex;
-	width: 100%;
-	height: 30em;
-	/*background-image: url("https://images.unsplash.com/photo-1519692933481-e162a57d6721");*/
-	background-size: cover;
-	background-position: center;
-	filter: contrast(125%);
-	justify-content: center;
-	align-items: center;
-}
-
-#forecast .forecast-cards {
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	gap: 1rem;
-}
-
-#forecast .card {
-	background-color: var(--primary-color);
-	padding: .5rem;
-}
