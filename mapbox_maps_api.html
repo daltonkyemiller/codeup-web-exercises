@@ -9,12 +9,19 @@
         <link rel="stylesheet" href="./css/mapbox_maps_api.css">
 
     </head>
-    <body>
+    <body class="dark-mode">
+        <header>
+            <h1>Mapbox</h1>
+        </header>
+
         <main>
             <section>
                 <div id="map"></div>
 
                 <div id="map-options">
+                    <div class="coordinates">
+                        0000 0000
+                    </div>
                     <form id="map-search">
                         <label>
                             Search:
@@ -25,10 +32,10 @@
                     <label>
                         Zoom Level
                         <select id="map-zoom-level">
-                            <option>2x</option>
-                            <option>4x</option>
-                            <option>6x</option>
-                            <option>8x</option>
+                            <option>...</option>
+                            <option>5</option>
+                            <option>15</option>
+                            <option>20</option>
                         </select>
                     </label>
                 </div>
@@ -37,5 +44,8 @@
     </body>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"
             integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
-    <script src="./js/mapbox_maps_api.js" type="module"></script>
+    <script src="./js/defaults/index.js"></script>
+    <script src="./js/keys.js"></script>
+    <script src="./js/mapbox-geocoder-utils.js"></script>
+    <script src="./js/mapbox_maps_api.js"></script>
 </html>

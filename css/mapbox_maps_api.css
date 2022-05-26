@@ -1,10 +1,15 @@
 @import "defaults/defaults.css";
 
+header {
+	text-align: center;
+}
+
 main {
 	display: flex;
 	flex-direction: column;
 	align-items: center;
 }
+
 
 #map {
 	width: 1000px;
@@ -14,14 +19,41 @@ main {
 
 #map-options {
 	display: flex;
+	flex-wrap: wrap;
+	gap: .5rem;
 	justify-content: space-between;
 	padding: .5rem 0;
 }
 
+#map-options .coordinates {
+	flex-basis: 100%;
+}
+
+#map .mapboxgl-popup-content {
+	background-color: var(--primary-color);
+}
+
+@keyframes bounceMarker {
+	from {
+		top: 0;
+	}
+	to {
+		top: 10px;
+	}
+
+}
+
+.restaurant-marker {
+	font-size: 1.5rem;
+	animation: bounceMarker 1s alternate infinite ease-in-out;
+}
+
 .popup {
+	padding: .5rem;
 
 }
 
 .popup .popup-img {
 	width: 100%;
 }
+

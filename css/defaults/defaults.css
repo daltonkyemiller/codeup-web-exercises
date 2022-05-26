@@ -16,9 +16,18 @@
 
 
 body {
-	background-color: var(--light-color);
-	color: var(--dark-color);
+	--primary-color: var(--light-color);
+	--secondary-color: var(--dark-color);
+	background-color: var(--primary-color);
+	color: var(--secondary-color);
 	animation: fadeIn 500ms forwards;
+	transition: all 500ms ease-in-out;
+}
+
+body.dark-mode {
+	--primary-color: var(--dark-color);
+	--secondary-color: var(--light-color);
+
 }
 
 nav {
@@ -43,30 +52,71 @@ ul {
 
 button {
 	padding: 1em;
-	border: 1px solid black;
+	color: var(--secondary-color);
+	background-color: var(--primary-color);
+	border: 1px solid var(--primary-color);
 	transition: all 500ms;
 	cursor: pointer;
 }
 
 button:hover {
-	color: white;
-	background: black;
+	color: var(--primary-color);
+	background: var(--secondary-color);
 }
 
 button:focus {
 	outline: none;
 }
 
-input {
+input[type="text"] {
+	color: inherit;
 	background: none;
 	padding: .5rem;
 	outline: none;
 	border: none;
-	border-bottom: 2px solid black;
+	border-bottom: 2px solid var(--secondary-color);
+	transition: border-bottom-width .5s ease-in-out;
 }
 
+input[type="text"]:focus {
+	border-bottom-width: 5px;
+}
+
+
 select {
+	color: inherit;
 	background: none;
 	padding: .5rem;
 	outline: none;
+}
+
+#theme-switcher {
+	position: absolute;
+	top: 0;
+	right: 0;
+}
+
+#modal {
+	display: flex;
+	justify-content: center;
+	position: absolute;
+
+	width: 50vw;
+	top: 0;
+	left: 50%;
+	background-color: var(--secondary-color);
+	color: var(--primary-color);
+	transform: translateX(-50%);
+}
+
+#modal.error {
+	color: #871F38;
+}
+
+#modal-exit {
+	position: absolute;
+	cursor: pointer;
+	font-size: 2rem;
+	top: 0;
+	right: .75rem;
 }
