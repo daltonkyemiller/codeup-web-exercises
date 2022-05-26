@@ -1,0 +1,72 @@
+@import "defaults/defaults.css";
+
+:root {
+	--dawn-gradient: linear-gradient(0deg, rgba(131, 58, 180, 1) 0%, rgba(222, 29, 29, 1) 61%, rgba(252, 176, 69, 1) 100%);
+	--night-gradient: linear-gradient(0deg, rgba(0, 0, 0, 1) 0%, rgba(57, 33, 142, 1) 58%, rgba(84, 49, 209, 1) 100%);
+}
+
+body {
+	margin: 0;
+}
+
+nav {
+	position: relative;
+	padding: 0 .5rem;
+}
+
+main {
+	position: relative;
+}
+
+#bg {
+	position: absolute;
+	top: 0;
+	left: 0;
+	inset: 0;
+	z-index: -1;
+}
+
+#bg-gradient {
+	position: absolute;
+	inset: 0;
+	background: rgb(131, 58, 180);
+	background: var(--night-gradient);
+	background-size: 150% 150%;
+	background
+	min-height: 100vh;
+}
+
+#stars {
+	position: absolute;
+	inset: 0;
+	background-image: url("../img/weather_map/stars.jpg");
+	background-size: cover;
+	mix-blend-mode: screen;
+	filter: contrast(150%);
+
+
+}
+
+#forecast {
+	display: flex;
+	width: 100%;
+	height: 30em;
+	/*background-image: url("https://images.unsplash.com/photo-1519692933481-e162a57d6721");*/
+	background-size: cover;
+	background-position: center;
+	filter: contrast(125%);
+	justify-content: center;
+	align-items: center;
+}
+
+#forecast .forecast-cards {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	gap: 1rem;
+}
+
+#forecast .card {
+	background-color: var(--primary-color);
+	padding: .5rem;
+}

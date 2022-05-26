@@ -13,7 +13,7 @@
  *  })
  *
  */
-const geocode = (search, token) => {
+export const geocode = (search, token) => {
     let baseUrl = 'https://api.mapbox.com';
     let endPoint = '/geocoding/v5/mapbox.places/';
     return fetch(baseUrl + endPoint + encodeURIComponent(search) + '.json' + '?' + 'access_token=' + token)
@@ -39,7 +39,7 @@ const geocode = (search, token) => {
  *  })
  *
  */
-const reverseGeocode = (coordinates, token) => {
+export const reverseGeocode = (coordinates, token) => {
     let baseUrl = 'https://api.mapbox.com';
     let endPoint = '/geocoding/v5/mapbox.places/';
     return fetch(baseUrl + endPoint + coordinates.lng + ',' + coordinates.lat + '.json' + '?' + 'access_token=' + token)

@@ -1,3 +1,6 @@
+import { geocode, reverseGeocode } from './mapbox-geocoder-utils.js';
+import { MAPBOX_API_KEY } from './keys.js';
+
 (() => {
     // ############################## MAPBOX INIT ############################## //
     mapboxgl.accessToken = MAPBOX_API_KEY;
