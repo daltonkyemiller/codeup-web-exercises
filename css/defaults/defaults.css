@@ -16,17 +16,16 @@
 
 
 body {
-	--primary-color: var(--light-color);
-	--secondary-color: var(--dark-color);
-	background-color: var(--primary-color);
-	color: var(--secondary-color);
+
+	background-color: var(--bg-color);
+	color: var(--fg-color);
 	animation: fadeIn 500ms forwards;
 	transition: all 500ms ease-in-out;
 }
 
 body.dark-mode {
-	--primary-color: var(--dark-color);
-	--secondary-color: var(--light-color);
+	--bg-color: var(--dark-color);
+	--fg-color: var(--light-color);
 
 }
 
@@ -52,16 +51,16 @@ ul {
 
 button {
 	padding: 1em;
-	color: var(--secondary-color);
-	background-color: var(--primary-color);
-	border: 1px solid var(--primary-color);
+	color: var(--fg-color);
+	background-color: var(--bg-color);
+	border: 1px solid var(--bg-color);
 	transition: all 500ms;
 	cursor: pointer;
 }
 
 button:hover {
-	color: var(--primary-color);
-	background: var(--secondary-color);
+	color: var(--bg-color);
+	background: var(--fg-color);
 }
 
 button:focus {
@@ -74,7 +73,7 @@ input[type="text"] {
 	padding: .5rem;
 	outline: none;
 	border: none;
-	border-bottom: 2px solid var(--secondary-color);
+	border-bottom: 2px solid var(--fg-color);
 	transition: border-bottom-width .5s ease-in-out;
 }
 
@@ -91,6 +90,7 @@ select {
 }
 
 #theme-switcher {
+	z-index: 5;
 	position: absolute;
 	top: 0;
 	right: 0;
@@ -104,8 +104,8 @@ select {
 	width: 50vw;
 	top: 0;
 	left: 50%;
-	background-color: var(--secondary-color);
-	color: var(--primary-color);
+	background-color: var(--fg-color);
+	color: var(--bg-color);
 	transform: translateX(-50%);
 }
 

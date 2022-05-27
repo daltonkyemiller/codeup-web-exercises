@@ -6,8 +6,6 @@
         <link rel="stylesheet" href="./css/weather_map/main.css">
     </head>
     <body>
-
-
         <!--<nav>-->
         <!--    <div class="brand"><h1>Weather Map</h1></div>-->
         <!--    &lt;!&ndash;<ul class="links">&ndash;&gt;-->
@@ -17,28 +15,34 @@
         <!--    &lt;!&ndash;</ul>&ndash;&gt;-->
         <!--</nav>-->
         <main>
+
             <section id="forecast">
-                <div class="forecast-cards">
+                <div id="today-forecast">
+                    <div class="welcome">Good Morning</div>
+                    <div class="time">12:23PM</div>
+                    <div class="day">Fri. May 27</div>
+                    <div class="temp">88</div>
+                </div>
+                <div id="forecast-cards">
 
-                    <div class="card">
-                        <div class="day">Mon</div>
-
-                    </div>
-                    <div class="card">
-                        <div class="day">Mon</div>
-
-                    </div>
                 </div>
             </section>
             <section id="forecast-controls">
                 <div class="body">
-                    <input type="text" name="" id="">
+                    <!--<input type="text" name="" id="">-->
+                    <button class="time-change" value="Dawn">Dawn</button>
+                    <button class="time-change" value="Day">Day</button>
+                    <button class="time-change" value="Dusk">Dusk</button>
+                    <button class="time-change" value="Night">Night</button>
                 </div>
             </section>
         </main>
         <div id="bg">
-            <div id="bg-gradient"></div>
-            <div id="clouds"></div>
+            <div id="night-gradient"></div>
+            <div id="dusk-gradient"></div>
+            <div id="day-gradient"></div>
+            <div id="dawn-gradient"></div>
+            <!--<div id="clouds"></div>-->
             <!--<div id="stars"></div>-->
         </div>
 

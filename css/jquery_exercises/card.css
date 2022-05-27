@@ -2,7 +2,7 @@
 	transition: all 250ms;
 }
 
-.card {
+.day-card {
 	border: 1px solid black;
 	width: 25%;
 	padding: .5em;

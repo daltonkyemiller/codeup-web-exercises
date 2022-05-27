@@ -102,7 +102,7 @@ main {
 	gap: 1rem;
 }
 
-#forecast .card {
-	background-color: var(--primary-color);
+#forecast .day-card {
+	background-color: var(--bg-color);
 	padding: .5rem;
 }

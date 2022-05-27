@@ -1,11 +1,21 @@
 (() => {
+    let darkMode = JSON.parse(localStorage.getItem('darkMode'));
+    if (darkMode) document.body.classList.add('dark-mode');
+
+    const toggleDarkMode = () => {
+        if (!darkMode) localStorage.setItem('darkMode', 'true');
+        else localStorage.setItem('darkMode', 'false');
+        document.body.classList.toggle('dark-mode');
+    };
+
+
     const initThemeSwitcher = () => {
         const modeSwitchBtn = document.createElement('button');
         modeSwitchBtn.id = 'theme-switcher';
         modeSwitchBtn.innerHTML = '<i class="fa-solid fa-circle-half-stroke"></i>';
         document.body.prepend(modeSwitchBtn);
         modeSwitchBtn.addEventListener('click', (e) => {
-            document.body.classList.toggle('dark-mode');
+            toggleDarkMode();
         });
     };
     initThemeSwitcher();

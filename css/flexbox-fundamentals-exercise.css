@@ -33,7 +33,7 @@ h2, h3 {
 	border: 2px solid black;
 }
 
-.card {
+.day-card {
 	display: flex;
 	flex-direction: column;
 	gap: 10px;

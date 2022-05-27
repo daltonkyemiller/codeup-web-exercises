@@ -30,7 +30,7 @@ main {
 }
 
 #map .mapboxgl-popup-content {
-	background-color: var(--primary-color);
+	background-color: var(--bg-color);
 }
 
 @keyframes bounceMarker {
