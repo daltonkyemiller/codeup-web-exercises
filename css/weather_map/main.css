@@ -51,7 +51,7 @@ main {
 }
 
 
-#forecast #forecast-cards {
+#forecast #forecast-daily-cards {
 	display: flex;
 	width: 100%;
 	justify-content: space-around;
@@ -97,4 +97,11 @@ main {
 #forecast-controls .heading * {
 	margin: 0;
 
+}
+
+datalist {
+	display: flex;
+	justify-content: space-between;
+	color: var(--bs-primary);
+	width: 50%;
 }
