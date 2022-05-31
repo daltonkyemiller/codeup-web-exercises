@@ -17,6 +17,11 @@
         <main>
 
             <section id="forecast">
+
+
+                <div id="forecast-daily-cards">
+
+                </div>
                 <div id="today-forecast">
                     <div id="today-card">
                         <div class="temp">88</div>
@@ -33,7 +38,7 @@
                     </div>
 
                     <div id="hourly-controls">
-                        <input type="range" min="0" max="12" value="0" id="time-range" list="hourly-ticks">
+                        <input type="range" min="0" max="15" value="0" id="time-range" list="hourly-ticks">
                         <datalist id="hourly-ticks">
                             <option value="0" label="now"></option>
                             <option value="1"></option>
@@ -48,29 +53,38 @@
                             <option value="10"></option>
                             <option value="11"></option>
                             <option value="12"></option>
+                            <option value="13"></option>
+                            <option value="14"></option>
+                            <option value="115"></option>
 
                         </datalist>
                     </div>
                 </div>
-
-
-                <div id="forecast-daily-cards">
-
-                </div>
             </section>
             <section id="forecast-controls">
                 <div class="body">
-                   
+                    <form id="search-form">
+                        <input type="text" id="location-search">
+                    </form>
+
                 </div>
             </section>
         </main>
         <div id="bg">
-            <div id="night-gradient"></div>
-            <div id="dusk-gradient"></div>
-            <div id="day-gradient"></div>
-            <div id="dawn-gradient"></div>
-            <!--<div id="clouds"></div>-->
-            <!--<div id="stars"></div>-->
+            <div id="night-gradient">
+                <div class="stars"></div>
+
+
+            </div>
+            <div id="dusk-gradient">
+                <div class="night-clouds"></div>
+            </div>
+            <div id="day-gradient">
+                <div class="night-clouds"></div>
+            </div>
+            <div id="dawn-gradient">
+                <div class="morning-clouds"></div>
+            </div>
         </div>
 
         <script src="https://code.jquery.com/jquery-3.6.0.min.js"
@@ -78,6 +92,6 @@
         <script src="./js/defaults/index.js"></script>
         <script src="./js/keys.js"></script>
         <script src="./js/mapbox-geocoder-utils.js"></script>
-        <script src="./js/weather_map.js"></script>
+        <script src="./js/weather_map.js" type="module"></script>
     </body>
 </html>

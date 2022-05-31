@@ -27,13 +27,12 @@ main {
 	background-size: cover;
 	background-position: center;
 	filter: contrast(125%);
-	justify-content: flex-end;
+	justify-content: space-between;
 }
 
 #forecast #today-forecast {
 	display: flex;
 	gap: .2rem;
-	flex-basis: 100%;
 	padding: 2rem;
 	flex-direction: column;
 }
@@ -82,13 +81,14 @@ main {
 }
 
 
-#forecast #today-forecast .temp::after {
+#today-forecast .temp::after {
 	content: '°';
 }
 
 
 #forecast #forecast-daily-cards {
 	display: flex;
+
 	width: 100%;
 	justify-content: space-around;
 	align-items: flex-end;
@@ -96,18 +96,23 @@ main {
 	padding: 0 1rem 1rem 1rem;
 }
 
+#forecast-daily-cards .desc-container {
+	gap: .5rem;
+
+
+}
+
+
 #forecast .day-card {
 	display: flex;
 	flex-direction: column;
 	flex-grow: 1;
 	height: 10em;
-	backdrop-filter: blur(25px);
-	box-shadow: inset 0 0 5px 0 rgba(0, 0, 0, .1);
+	/*backdrop-filter: blur(100px);*/
 	padding: 1rem;
 }
 
 #forecast .day-card .day {
-	background-color: rgba(0, 0, 0, .25);
 	padding: .25rem;
 	text-transform: uppercase;
 }
@@ -117,11 +122,15 @@ main {
 
 }
 
+#forecast-daily-cards .day-card .desc-container {
+	display: flex;
+	flex-direction: column;
+}
+
 
 #forecast-controls {
 	display: flex;
 	color: rgba(0, 0, 0, 0.75);
-
 	justify-content: center;
 	padding: 1rem;
 	box-shadow: inset 0 0 10em 0 rgba(0, 0, 0, .05);
@@ -130,8 +139,15 @@ main {
 	height: 100%;
 }
 
-#forecast-controls .heading * {
-	margin: 0;
+#forecast-controls .body {
+	width: 100%;
+}
+
+#forecast-controls #location-search {
+	width: 100%;
+}
+
+#forecast-controls #search-form {
 
 }
 
@@ -139,8 +155,13 @@ main {
 	width: 100%;
 }
 
-datalist {
-	display: flex;
-	justify-content: space-between;
-	color: var(--bs-primary);
+.weather-icon svg {
+	width: 3em;
+
 }
+
+.weather-icon svg * {
+	stroke: var(--fg-color);
+	fill: var(--fg-color);
+}
+

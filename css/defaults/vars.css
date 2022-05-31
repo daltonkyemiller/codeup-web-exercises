@@ -1,6 +1,6 @@
 :root {
-	--light-color: #eaeaea;
-	--dark-color: #1c1c1c;
+	--light-color: #dedede;
+	--dark-color: #1e1e1e;
 	--bg-color: var(--light-color);
 	--fg-color: var(--dark-color);
 }

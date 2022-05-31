@@ -3,15 +3,16 @@
 	--dawn-gradient: linear-gradient(0deg, rgba(52, 54, 88, 1) 0%, rgba(202, 166, 104, 1) 35%, rgba(210, 221, 188, 1) 83%, rgba(143, 207, 249, 1) 100%);
 	--day-gradient: linear-gradient(0deg, rgba(148, 187, 233, 1) 0%, rgba(60, 129, 209, 1) 100%);
 	--dusk-gradient: linear-gradient(0deg, rgba(131, 58, 180, 1) 0%, rgba(222, 29, 29, 1) 61%, rgba(252, 176, 69, 1) 100%);
-	--night-gradient: linear-gradient(0deg, rgba(0, 0, 0, 1) 0%, rgba(50, 0, 78, 1) 28%, rgba(57, 25, 172, 1) 100%);
+	--night-gradient: linear-gradient(0deg, rgba(0, 0, 0, 1) 0%, rgba(19, 0, 47, 1) 56%, rgba(18, 0, 69, 1) 100%);
 }
 
-@keyframes gradient {
+@keyframes clouds {
 	0% {
-		filter: brightness(100%);
+		background-size: 100% auto;
 	}
 	100% {
-		filter: brightness(0%) contrast(150%);
+		background-size: 105% auto;
+
 	}
 }
 
@@ -33,7 +34,6 @@
 
 #dawn-gradient {
 	background: var(--dawn-gradient);
-
 }
 
 #day-gradient {
@@ -41,7 +41,7 @@
 }
 
 #dusk-gradient {
-	background: var(--dusk-gradient)
+	background: var(--dusk-gradient);
 }
 
 #night-gradient {
@@ -57,26 +57,39 @@
 	animation: fadeOut 3s forwards;
 }
 
-#clouds {
+#bg {
+	overflow: hidden;
+
+}
+
+#bg :is(.morning-clouds, .night-clouds) {
 	position: absolute;
 	inset: 0;
-	background: url("../../img/weather_map/clouds.jpg") bottom right;
 	background-size: cover;
 	mix-blend-mode: screen;
-	/*filter: blur(25px);*/
-	/*animation: gradient 5s forwards;*/
+	transform: scale(125%);
+}
+
+#bg .morning-clouds {
+	background: url("../../img/weather_map/morning-clouds.jpg") bottom right;
+
+}
+
+#bg .night-clouds {
+	background: url("../../img/weather_map/clouds.jpg") top right;
+	filter: blur(25px);
 
 }
 
 
-#stars {
+.stars {
 	position: absolute;
 	inset: 0;
 	background-image: url("../../img/weather_map/stars-2.jpg");
 	background-size: cover;
 	background-position: bottom left;
 	mix-blend-mode: screen;
-	filter: contrast(120%);
+	filter: contrast(200%)
 
 
 }
