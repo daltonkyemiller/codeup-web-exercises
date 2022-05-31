@@ -1,6 +1,3 @@
-import { geocode, reverseGeocode } from './mapbox-geocoder-utils.js';
-import { MAPBOX_API_KEY } from './keys.js';
-
 (() => {
     // ############################## MAPBOX INIT ############################## //
     mapboxgl.accessToken = MAPBOX_API_KEY;
@@ -43,8 +40,8 @@ import { MAPBOX_API_KEY } from './keys.js';
         searchMarker
             .setLngLat(coords);
         reverseGeocode({ lng: coords[0], lat: coords[1] }, MAPBOX_API_KEY).then((data) => {
-            searchMarkerPopup.setHTML(Popup(data, ''));
-            coordinates.html(data);
+            searchMarkerPopup.setHTML(Popup(data.features[0].place_name, ''));
+            coordinates.html(data.features[0].place_name);
         });
     };
     setCoordinates([-98.489765, 29.426742]);

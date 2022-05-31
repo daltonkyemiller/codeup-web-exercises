@@ -1,14 +1,22 @@
 'use strict';
-import { MAPBOX_API_KEY, OPEN_WEATHER_KEY } from './keys.js';
-import { geocode } from './mapbox-geocoder-utils.js';
+
 
 const OPEN_WEATHER_ENDPOINT = 'https://api.openweathermap.org/data/3.0/onecall';
-const variables = {
+let variables = {
     location: 'San Antonio, TX',
-    time: new Date(),
+    currTime: new Date(),
+    userSetTime: new Date(),
     units: 'imperial'
 };
 
+
+if (navigator.geolocation) {
+    navigator.geolocation.getCurrentPosition((pos) => {
+        reverseGeocode({ lng: pos.coords.longitude, lat: pos.coords.latitude }, MAPBOX_API_KEY).then(place => {
+            variables.location = place.features[2].place_name.split(',')[0];
+        });
+    });
+}
 
 const DayCard = (day, temp, desc) => {
     return {
@@ -23,6 +31,22 @@ const DayCard = (day, temp, desc) => {
         `)
     };
 };
+
+const TIMES = {
+    MORNING: 'morning',
+    AFTERNOON: 'afternoon',
+    EVENING: 'evening',
+    NIGHT: 'night'
+};
+
+const getTimeOfDay = (date) => {
+    if (date.getHours() < 12 && date.getHours() > 4) return TIMES.MORNING;
+    else if (date.getHours() < 18 && date.getHours() > 4) return TIMES.AFTERNOON;
+    else if (date.getHours() < 20 && date.getHours() > 4) return TIMES.EVENING;
+    else return 'night';
+
+};
+
 
 const getWeatherData = (location, units) => {
     return geocode(location, MAPBOX_API_KEY)
@@ -45,14 +69,29 @@ const setGradient = (date) => {
     const dayGradient = $('#day-gradient');
     const duskGradient = $('#dusk-gradient');
     const nightGradient = $('#night-gradient');
-    let currGradient = nightGradient;
-    if (date.getHours() < 12 && date.getHours() > 4) currGradient = dawnGradient;
-    else if (date.getHours() < 18) currGradient = dayGradient;
-    else if (date.getHours() < 20) currGradient = duskGradient;
-    else currGradient = nightGradient;
+    let currGradient;
 
-    currGradient.animate({ opacity: 1 }, 1000);
-    bgGradients.not(currGradient).animate({ opacity: 0 }, 1000);
+    switch (getTimeOfDay(date)) {
+        case TIMES.MORNING:
+            currGradient = dawnGradient;
+            setDarkMode(false);
+            break;
+        case TIMES.AFTERNOON:
+            currGradient = dawnGradient;
+            setDarkMode(false);
+            break;
+        case TIMES.EVENING:
+            currGradient = duskGradient;
+            setDarkMode(true);
+            break;
+        case TIMES.NIGHT:
+            currGradient = nightGradient;
+            setDarkMode(true);
+            break;
+    }
+
+    currGradient.animate({ opacity: 1 }, 500);
+    bgGradients.not(currGradient).animate({ opacity: 0 }, 500);
 
 };
 
@@ -67,29 +106,40 @@ const setDailyWeatherCards = (weatherData) => {
 const setCurrentCard = (weatherData, date) => {
     const time = date.toLocaleTimeString([], { hour: 'numeric', minute: '2-digit' });
     const todayCard = $('#today-card');
-    let welcomeMsg = 'Good ';
-    if (date.getHours() < 12 && date.getHours() > 4) welcomeMsg += 'Morning';
-    else if (date.getHours() < 18 && date.getHours() > 4) welcomeMsg += 'Afternoon';
-    else if (date.getHours() < 20 && date.getHours() > 4) welcomeMsg += 'Evening';
-    else welcomeMsg += 'Night';
+    let welcomeMsg = 'Good ' + getTimeOfDay(date);
+
     todayCard.find('.time').html(time);
     todayCard.find('.day').html(date.toLocaleDateString('en-US'));
     todayCard.find('.temp').html(weatherData.temp);
     todayCard.find('.welcome').html(welcomeMsg);
+    todayCard.find('.desc').html(weatherData.weather[0].description);
+    todayCard.find('.location').html(variables.location);
+    
+    todayCard.find('.desc-icon').html('<img src="http://openweathermap.org/img/wn/' + weatherData.weather[0].icon + '@2x.png">');
 };
 
+const initTimeSlider = () => {
+    $('#hourly-ticks').children().each((idx, option) => {
+        const hours = new Date();
+        hours.setHours(variables.currTime.getHours() + idx);
+        $(option).attr('label', (hours.getHours() + 24) % 12 || 12);
+    });
+};
 
 const renderData = () => {
     getWeatherData(variables.location, variables.units)
         .then(weatherData => {
             const currentData = weatherData.hourly.reduce((accum, curr) => {
-                const time = variables.time.getTime() / 1000;
+                const time = variables.userSetTime.getTime() / 1000;
                 return Math.abs(curr.dt - time) < Math.abs(accum.dt - time) ? curr : accum;
             });
+            console.log(weatherData.hourly);
+            console.log(weatherData);
             console.log(currentData);
+            initTimeSlider();
             setDailyWeatherCards(weatherData);
-            setCurrentCard(currentData, variables.time);
-            setGradient(variables.time);
+            setCurrentCard(currentData, variables.userSetTime);
+            setGradient(variables.userSetTime);
         });
 
 };
@@ -99,9 +149,8 @@ renderData();
 
 
 $('#time-range').change((e) => {
-    console.log(e.target.value);
-    variables.time = new Date();
-    variables.time.setHours(new Date().getHours() + parseInt(e.target.value));
+    variables.userSetTime = new Date();
+    variables.userSetTime.setHours(new Date().getHours() + parseInt(e.target.value));
     renderData();
 });
 

@@ -32,19 +32,55 @@ main {
 
 #forecast #today-forecast {
 	display: flex;
-	gap: .1rem;
+	gap: .2rem;
 	flex-basis: 100%;
 	padding: 2rem;
 	flex-direction: column;
 }
 
-#forecast #today-forecast .time {
-	font-size: 3rem;
+#forecast #today-forecast #today-card {
+	display: flex;
+	gap: 1rem;
+
+
 }
 
-#forecast #today-forecast .temp {
+#today-card .temp {
+	font-size: 3rem;
+	font-weight: bold;
+}
+
+#today-card .location {
 	font-size: 2rem;
 }
+
+
+#today-card .ltd-container {
+	display: grid;
+	grid-template-columns: auto minmax(0, 1fr);
+}
+
+#today-card .ltd-container .location {
+	grid-column: span 2;
+}
+
+
+#today-card .ltd-container .time::after {
+	content: '•';
+	padding: 0 5px;
+}
+
+
+#today-card .desc-container {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
+
+#today-card .desc-container .desc-icon img {
+	width: 3rem;
+}
+
 
 #forecast #today-forecast .temp::after {
 	content: '°';
@@ -99,9 +135,12 @@ main {
 
 }
 
+#hourly-controls input {
+	width: 100%;
+}
+
 datalist {
 	display: flex;
 	justify-content: space-between;
 	color: var(--bs-primary);
-	width: 50%;
 }

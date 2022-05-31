@@ -19,10 +19,17 @@
             <section id="forecast">
                 <div id="today-forecast">
                     <div id="today-card">
-                        <div class="welcome">Good Morning</div>
-                        <div class="time">12:23PM</div>
-                        <div class="day">Fri. May 27</div>
                         <div class="temp">88</div>
+                        <div class="ltd-container">
+                            <!--<div class="welcome">Good Morning</div>-->
+                            <div class="location"></div>
+                            <div class="time">12:23PM</div>
+                            <div class="day">Fri. May 27</div>
+                        </div>
+                        <div class="desc-container">
+                            <div class="desc-icon"></div>
+                            <div class="desc"></div>
+                        </div>
                     </div>
 
                     <div id="hourly-controls">
@@ -53,11 +60,7 @@
             </section>
             <section id="forecast-controls">
                 <div class="body">
-                    <!--<input type="text" name="" id="">-->
-                    <button class="time-change" value="Dawn">Dawn</button>
-                    <button class="time-change" value="Day">Day</button>
-                    <button class="time-change" value="Dusk">Dusk</button>
-                    <button class="time-change" value="Night">Night</button>
+                   
                 </div>
             </section>
         </main>
@@ -73,6 +76,8 @@
         <script src="https://code.jquery.com/jquery-3.6.0.min.js"
                 integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
         <script src="./js/defaults/index.js"></script>
-        <script src="./js/weather_map.js" type="module"></script>
+        <script src="./js/keys.js"></script>
+        <script src="./js/mapbox-geocoder-utils.js"></script>
+        <script src="./js/weather_map.js"></script>
     </body>
 </html>

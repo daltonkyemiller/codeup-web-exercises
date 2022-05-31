@@ -1,26 +1,28 @@
-(() => {
-    let darkMode = JSON.parse(localStorage.getItem('darkMode'));
-    if (darkMode) document.body.classList.add('dark-mode');
+let darkMode = JSON.parse(localStorage.getItem('darkMode'));
+if (darkMode) document.body.classList.add('dark-mode');
 
-    const toggleDarkMode = () => {
-        if (!darkMode) localStorage.setItem('darkMode', 'true');
-        else localStorage.setItem('darkMode', 'false');
-        document.body.classList.toggle('dark-mode');
-    };
+const toggleDarkMode = () => {
+    if (!darkMode) localStorage.setItem('darkMode', 'true');
+    else localStorage.setItem('darkMode', 'false');
+    document.body.classList.toggle('dark-mode');
+};
+const setDarkMode = (val) => {
+    localStorage.setItem('darkMode', val);
+    if (val) document.body.classList.add('dark-mode');
+    else document.body.classList.remove('dark-mode');
+};
 
 
-    const initThemeSwitcher = () => {
-        const modeSwitchBtn = document.createElement('button');
-        modeSwitchBtn.id = 'theme-switcher';
-        modeSwitchBtn.innerHTML = '<i class="fa-solid fa-circle-half-stroke"></i>';
-        document.body.prepend(modeSwitchBtn);
-        modeSwitchBtn.addEventListener('click', (e) => {
-            toggleDarkMode();
-        });
-    };
-    initThemeSwitcher();
-})();
-
+const initThemeSwitcher = () => {
+    const modeSwitchBtn = document.createElement('button');
+    modeSwitchBtn.id = 'theme-switcher';
+    modeSwitchBtn.innerHTML = '<i class="fa-solid fa-circle-half-stroke"></i>';
+    document.body.prepend(modeSwitchBtn);
+    modeSwitchBtn.addEventListener('click', (e) => {
+        toggleDarkMode();
+    });
+};
+initThemeSwitcher();
 
 // ############################## HELPERS ############################## //
 const htmlToElement = (html) => {
