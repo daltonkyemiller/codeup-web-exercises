@@ -1,7 +1,7 @@
 'use strict';
 import { WEATHER_ICONS } from './weather_map/icons.js';
 
-const OPEN_WEATHER_ENDPOINT = 'https://api.openweathermap.org/data/3.0/onecall';
+const OPEN_WEATHER_ENDPOINT = 'https://api.openweathermap.org/data/2.5/onecall';
 let variables = {
     location: 'San Antonio, TX',
     currTime: new Date(),
@@ -29,31 +29,16 @@ const DayCard = (day, temp, desc) => {
 
 const WeatherIcon = (code) => {
     let icon;
-    console.log(code.toString()[0]);
-    switch (code.toString()[0]) {
-        case '2':
-            icon = WEATHER_ICONS.THUNDERSTORM;
-            break;
-        case '3':
-            icon = WEATHER_ICONS.RAIN;
-            break;
-        case '5':
-            icon = WEATHER_ICONS.RAIN;
-            break;
-        case '6':
-            icon = WEATHER_ICONS.SNOW;
-            break;
-        case '7':
-            icon = WEATHER_ICONS.ATMOSPHERE;
-            break;
-        case '8':
-            icon = WEATHER_ICONS.SUNNY;
-            break;
-        default:
-            icon = WEATHER_ICONS.RAIN;
+    if (code >= 200) icon = WEATHER_ICONS.THUNDERSTORM;
+    if (code >= 300) icon = WEATHER_ICONS.RAIN;
+    if (code >= 312) icon = WEATHER_ICONS.HEAVY_RAIN;
+    if (code >= 500) icon = WEATHER_ICONS.HEAVY_RAIN;
+    if (code >= 600) icon = WEATHER_ICONS.SNOW;
+    if (code >= 700) icon = WEATHER_ICONS.ATMOSPHERE;
+    if (code >= 800) icon = WEATHER_ICONS.SUNNY;
+    if (code >= 801) icon = WEATHER_ICONS.FEW_CLOUDS;
 
 
-    }
     //language=HTML
     return `
         <div class="weather-icon">${icon}</div>`;
@@ -73,6 +58,7 @@ const getTimeOfDay = (date) => {
     else if (date.getHours() < 20 && date.getHours() > 4) return TIMES.EVENING;
     else return TIMES.NIGHT;
 };
+const cityFromAddress = (address) => address.split(',')[0];
 
 const getWeatherData = (location, units) => {
     return geocode(location, MAPBOX_API_KEY)
@@ -82,8 +68,7 @@ const getWeatherData = (location, units) => {
                 lat: coords[1],
                 lon: coords[0],
                 units: units
-            })
-                .catch(e => setModal({ title: 'Error retrieving weather data', type: 'error' }));
+            }).catch(e => setModal({ title: 'Can\'t fetch weather data', type: 'error' }));
         })
         .catch(e => setModal({ title: 'Can\'t find the location...', type: 'error' }));
 };
@@ -168,6 +153,9 @@ const renderData = () => {
                 const time = variables.userSetTime.getTime() / 1000;
                 return Math.abs(curr.dt - time) < Math.abs(accum.dt - time) ? curr : accum;
             });
+            const center = [weatherData.lon, weatherData.lat];
+            MAP.flyTo({ center });
+            MAP_MARKER.setLngLat(center);
             initTimeSlider();
             setDailyWeatherCards(weatherData);
             setCurrentCard(currentData, variables.userSetTime);
@@ -180,7 +168,6 @@ if (navigator.geolocation) {
     navigator.geolocation.getCurrentPosition((pos) => {
         reverseGeocode({ lng: pos.coords.longitude, lat: pos.coords.latitude }, MAPBOX_API_KEY).then(place => {
             variables.location = place.features[2].place_name.split(',')[0];
-            console.log('reverse geo');
             renderData();
         });
     });
@@ -198,4 +185,13 @@ $('#search-form').submit((e) => {
     e.preventDefault();
     variables.location = $('#location-search').val();
     renderData();
+});
+
+
+MAP_MARKER.on('dragend', (e) => {
+    reverseGeocode(e.target._lngLat, MAPBOX_API_KEY)
+        .then(place => {
+            variables.location = cityFromAddress(place.features[2].place_name);
+            renderData();
+        });
 });

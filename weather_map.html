@@ -3,22 +3,18 @@
     <head>
         <meta charset="UTF-8">
         <title>Weather Map</title>
+        <script src='https://api.mapbox.com/mapbox-gl-js/v2.8.2/mapbox-gl.js'></script>
+        <script src="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v5.0.0/mapbox-gl-geocoder.min.js"></script>
+
         <link rel="stylesheet" href="./css/weather_map/main.css">
+        <link href='https://api.mapbox.com/mapbox-gl-js/v2.8.2/mapbox-gl.css' rel='stylesheet'/>
+        <link rel="stylesheet"
+              href="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v5.0.0/mapbox-gl-geocoder.css"
+              type="text/css">
     </head>
     <body>
-        <!--<nav>-->
-        <!--    <div class="brand"><h1>Weather Map</h1></div>-->
-        <!--    &lt;!&ndash;<ul class="links">&ndash;&gt;-->
-        <!--    &lt;!&ndash;    <li>Something</li>&ndash;&gt;-->
-        <!--    &lt;!&ndash;    <li>Something Else</li>&ndash;&gt;-->
-        <!--    &lt;!&ndash;    <li>Other Thing</li>&ndash;&gt;-->
-        <!--    &lt;!&ndash;</ul>&ndash;&gt;-->
-        <!--</nav>-->
         <main>
-
             <section id="forecast">
-
-
                 <div id="forecast-daily-cards">
 
                 </div>
@@ -61,13 +57,20 @@
                     </div>
                 </div>
             </section>
-            <section id="forecast-controls">
-                <div class="body">
-                    <form id="search-form">
-                        <input type="text" id="location-search">
-                    </form>
+            <!--<section id="forecast-controls">-->
+            <!--    <div class="body">-->
+            <!--        <form id="search-form">-->
+            <!--            <input type="text" id="location-search">-->
+            <!--        </form>-->
 
-                </div>
+            <!--    </div>-->
+            <!--</section>-->
+            <button id="open-map"><</button>
+            <section id="map-container">
+                <div class="exit">X</div>
+                <div id="geocoder" class="geocoder"></div>
+
+                <div id="map"></div>
             </section>
         </main>
         <div id="bg">
@@ -92,6 +95,7 @@
         <script src="./js/defaults/index.js"></script>
         <script src="./js/keys.js"></script>
         <script src="./js/mapbox-geocoder-utils.js"></script>
+        <script src="./js/weather_map/map.js"></script>
         <script src="./js/weather_map.js" type="module"></script>
     </body>
 </html>

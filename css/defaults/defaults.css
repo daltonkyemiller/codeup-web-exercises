@@ -67,17 +67,17 @@ button:focus {
 	outline: none;
 }
 
-input[type="text"] {
+input[type="text"].text-input {
 	color: var(--fg-color);
 	background: none;
-	padding: .5rem;
+
 	outline: none;
 	border: none;
 	border-bottom: 2px solid var(--fg-color);
 	transition: border-bottom-width .5s ease-in-out;
 }
 
-input[type="text"]:focus {
+input[type="text"]:focus.text-input {
 	border-bottom-width: 5px;
 }
 

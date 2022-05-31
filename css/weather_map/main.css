@@ -1,6 +1,6 @@
 @import "../defaults/defaults.css";
 @import "bg.css";
-
+@import "map.css";
 
 body {
 	animation: none;
