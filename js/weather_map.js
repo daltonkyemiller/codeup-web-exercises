@@ -1,20 +1,53 @@
 'use strict';
 import { WEATHER_ICONS } from './weather_map/icons.js';
+import { MOCK_WEATHER_DATA } from './weather_map/placeholder_data.js';
 
 const OPEN_WEATHER_ENDPOINT = 'https://api.openweathermap.org/data/2.5/onecall';
-let variables = {
+const STATE = {
     location: 'San Antonio, TX',
     currTime: new Date(),
     userSetTime: new Date(),
-    units: 'imperial'
+    units: 'imperial',
+    weatherData: MOCK_WEATHER_DATA,
+    setLocation: (newLoc) => {
+        geocode(newLoc, MAPBOX_API_KEY)
+            .then(data => {
+                return getWeatherData(data, STATE.units);
+            })
+            .then(weatherData => {
+                MAP_MARKER.setLngLat({ lon: weatherData.lon, lat: weatherData.lat });
+                MAP.flyTo({
+                    center: [weatherData.lon, weatherData.lat]
+                });
+                STATE.location = newLoc;
+                STATE.setWeatherData(weatherData);
+            });
+    },
+    setUserSetTime: (newTime) => {
+        STATE.userSetTime = newTime;
+        setBG(newTime);
+        setCurrentCard(newTime);
+    },
+    setUnits: (newUnits) => updateState(() => STATE.units = newUnits),
+    setWeatherData: (newWeatherData) => updateState(() => STATE.weatherData = newWeatherData)
+};
+const updateState = (callback) => {
+    callback();
+    redraw();
+};
+const replaceEl = (oldEl, newEl, options = { fadeOutSpeed: 400 }) => {
+    oldEl.fadeTo(options.fadeOutSpeed, 0, 'swing', () => {
+        oldEl.replaceWith(newEl);
+    });
 };
 
 
-const DayCard = (day, temp, desc) => {
+// Card Component for Daily Forecast
+const DayCard = (day, temp, desc, idx) => {
     return {
         //language=HTML
         element: htmlToElement(`
-            <div class="day-card">
+            <div class="day-card" style="--delay: ${idx}">
                 <div class="day">${day}</div>
                 <div class="temp">${temp}</div>
                 <div class="desc-container">
@@ -27,6 +60,7 @@ const DayCard = (day, temp, desc) => {
     };
 };
 
+// Card Component Showing Current Weather Conditions
 const TodayCard = (temp, location, time, day, desc) => {
     return {
         //language=HTML
@@ -48,6 +82,7 @@ const TodayCard = (temp, location, time, day, desc) => {
     };
 };
 
+// Icon Component Translates Icon Code to Custom Icons
 const WeatherIcon = (code) => {
     let icon;
     if (code >= 200) icon = WEATHER_ICONS.THUNDERSTORM;
@@ -65,6 +100,7 @@ const WeatherIcon = (code) => {
         <div class="weather-icon">${icon}</div>`;
 };
 
+// Times for Gradient and Greeting
 const TIMES = {
     MORNING: 'morning',
     AFTERNOON: 'afternoon',
@@ -73,14 +109,22 @@ const TIMES = {
 };
 
 
+// Returns the Current Time of Day
 const getTimeOfDay = (date) => {
-    if (date.getHours() < 12 && date.getHours() > 4) return TIMES.MORNING;
-    else if (date.getHours() < 18 && date.getHours() > 4) return TIMES.AFTERNOON;
-    else if (date.getHours() < 20 && date.getHours() > 4) return TIMES.EVENING;
-    else return TIMES.NIGHT;
-};
-const cityFromAddress = (address) => address.split(',')[0];
+    let time;
+    if (date.getHours() < 12 && date.getHours() > 4) time = TIMES.MORNING;
+    else if (date.getHours() < 18 && date.getHours() > 4) time = TIMES.AFTERNOON;
+    else if (date.getHours() < 20 && date.getHours() > 4) time = TIMES.EVENING;
+    else time = TIMES.NIGHT;
 
+    return time;
+};
+
+// Returns the place or region from a set of features
+const getBestFeature = (features) =>
+    features.filter(feature => feature.place_type.includes('place') || feature.place_type.includes('region'))[0];
+
+// Returns a promise after geocoding a location and getting the weather data associated with it
 const getWeatherData = (location, units) => {
     return geocode(location, MAPBOX_API_KEY)
         .then(coords => {
@@ -94,7 +138,7 @@ const getWeatherData = (location, units) => {
         .catch(e => setModal({ title: 'Can\'t find the location...', type: 'error' }));
 };
 
-
+// Set's the background and the dark/light mode
 const setBG = (date) => {
     const bgGradients = $('#bg [id*="gradient"]');
     const dawnGradient = $('#dawn-gradient');
@@ -131,104 +175,100 @@ const setBG = (date) => {
 
 };
 
-const setDailyWeatherCards = (weatherData) => {
-    let cards = weatherData.daily.filter((day, idx) => idx < 6 && idx !== 0).map((day) => {
-        const date = new Date(day.dt * 1000);
-        return $(DayCard(date.toDateString(), day.temp.day, {
-                desc: day.weather[0].description,
-                iconCode: day.weather[0].id,
-            },
-        ).element);
-    });
+// Renders the daily weather cards
+const setDailyWeatherCards = (weatherData, numOfCards) => {
+    let cards = weatherData.daily
+        .filter((day, idx) => idx <= numOfCards && idx > 0)
+        .map((day, idx) => {
+            const date = new Date(day.dt * 1000);
+            return $(DayCard(date.toDateString(), day.temp.day, {
+                    desc: day.weather[0].description,
+                    iconCode: day.weather[0].id,
+                },
+                idx
+            ).element);
+        });
+    const dailyCards = $('#forecast-daily-cards');
+    const newDailyCards = dailyCards.clone().html(cards);
+    replaceEl(dailyCards, newDailyCards);
 
-    $('#forecast-daily-cards').html(cards);
+    // $('#forecast-daily-cards').fadeTo(500, 0, 'swing', function () {
+    //     $(this).html(cards);
+    //     $(this).fadeTo(500, 1);
+    // });
 };
-const setCurrentCard = (weatherData, date) => {
-
-    const time = date.toLocaleTimeString([], { hour: 'numeric', minute: '2-digit' });
+const setCurrentCard = (date) => {
+    const currentData = STATE.weatherData.hourly.reduce((accum, curr) => {
+        const time = STATE.userSetTime.getTime() / 1000;
+        return Math.abs(curr.dt - time) < Math.abs(accum.dt - time) ? curr : accum;
+    });
+    const fadeOutSpeed = 400;
     const todayCard = $('#today-card');
-    let welcomeMsg = 'Good ' + getTimeOfDay(date);
+    const time = date.toLocaleTimeString([], { hour: 'numeric', minute: '2-digit' });
 
-    todayCard.fadeOut('fast', () => {
-        todayCard.replaceWith(TodayCard(weatherData.temp, variables.location, time, date.toLocaleDateString('en-US'), {
-            label: weatherData.weather[0].description,
-            icon: WeatherIcon(weatherData.weather[0].id)
-        }).element);
-    });
+    const newCard = TodayCard(currentData.temp, STATE.location, time, date.toLocaleDateString('en-US'), {
+        label: currentData.weather[0].description,
+        icon: WeatherIcon(currentData.weather[0].id)
+    }).element;
 
-    // todayCard.find('.time').html(time);
-    // todayCard.find('.day').html(date.toLocaleDateString('en-US'));
-    // todayCard.find('.temp').html(weatherData.temp);
-    // todayCard.find('.welcome').html(welcomeMsg);
-    // todayCard.find('.desc').html(weatherData.weather[0].description);
-    // todayCard.find('.location').html(variables.location);
-    //
-    // todayCard.find('.desc-icon').html(WeatherIcon(weatherData.weather[0].id));
+    replaceEl(todayCard, newCard);
 };
+
 
 const initTimeSlider = () => {
     $('#hourly-ticks').children().each((idx, option) => {
         const hours = new Date();
-        hours.setHours(variables.currTime.getHours() + idx);
-        $(option).attr('label', (hours.getHours() + 24) % 12 || 12);
+        hours.setHours(STATE.currTime.getHours() + idx);
+        const am = hours.getHours() < 12;
+        $(option).attr('label', ((hours.getHours() + 24) % 12 || 12) + (am ? 'AM' : 'PM'));
     });
 };
 
-const renderData = () => {
-    getWeatherData(variables.location, variables.units)
-        .then(weatherData => {
-            const currentData = weatherData.hourly.reduce((accum, curr) => {
-                const time = variables.userSetTime.getTime() / 1000;
-                return Math.abs(curr.dt - time) < Math.abs(accum.dt - time) ? curr : accum;
-            });
-            const center = [weatherData.lon, weatherData.lat];
-            MAP.flyTo({ center });
-            MAP_MARKER.setLngLat(center);
-            initTimeSlider();
-            setDailyWeatherCards(weatherData);
-            setCurrentCard(currentData, variables.userSetTime);
-            setBG(variables.userSetTime);
-        });
-
+const redraw = () => {
+    initTimeSlider();
+    setDailyWeatherCards(STATE.weatherData, 7);
+    setCurrentCard(STATE.userSetTime);
+    setBG(STATE.userSetTime);
 };
 
 if (navigator.geolocation) {
-    navigator.geolocation.getCurrentPosition((pos) => {
-        reverseGeocode({ lng: pos.coords.longitude, lat: pos.coords.latitude }, MAPBOX_API_KEY).then(place => {
-            variables.location = place.features[2].place_name.split(',')[0];
-            renderData();
+    setModal({ title: 'Getting your location...' });
+    navigator.geolocation.getCurrentPosition(
+        (pos) => {
+            reverseGeocode({ lng: pos.coords.longitude, lat: pos.coords.latitude }, MAPBOX_API_KEY)
+                .then(place => {
+                    MODAL.close();
+                    STATE.setLocation(getBestFeature(place.features).place_name);
+                });
+        },
+        (error) => {
+            MODAL.close();
+            redraw();
         });
-    });
+} else {
+    redraw();
 }
-renderData();
-
 
 $('#time-range').change((e) => {
-    variables.userSetTime = new Date();
-    variables.userSetTime.setHours(new Date().getHours() + parseInt(e.target.value));
-    renderData();
+    const newDate = new Date();
+    newDate.setHours(new Date().getHours() + parseInt(e.target.value));
+    STATE.setUserSetTime(newDate);
 });
 
 $('#search-form').submit((e) => {
     e.preventDefault();
-    variables.location = $('#location-search').val();
-    renderData();
+    STATE.setLocation($('#location-search').val());
 });
 
 
 MAP_MARKER.on('dragend', (e) => {
     reverseGeocode(e.target._lngLat, MAPBOX_API_KEY)
         .then(place => {
-            variables.location = cityFromAddress(place.features[2].place_name);
-            renderData();
-        });
+            STATE.setLocation(getBestFeature(place.features).place_name);
+        })
+        .catch(error => setModal({ title: 'Cannot find location weather data', type: 'error' }));
 });
 
 MAP_GEOCODER.on('result', (e) => {
-    variables.location = e.result.place_name;
-    MAP_MARKER.setLngLat({ lon: e.result.center[0], lat: e.result.center[1] });
-    MAP.flyTo({
-        center: e.result.center
-    });
-    renderData();
+    STATE.setLocation(e.result.place_name);
 });

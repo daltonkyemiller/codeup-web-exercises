@@ -44,8 +44,8 @@ main {
 	gap: 1rem;
 }
 
-#today-card * {
-	animation: bounceIn 500ms forwards;
+#today-card {
+	animation: fadeIn 500ms;
 }
 
 #today-card .temp {
@@ -87,9 +87,10 @@ main {
 
 
 #forecast #forecast-daily-cards {
-	display: grid;
-	grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-	justify-items: center;
+	display: flex;
+	flex-wrap: wrap;
+
+	/*grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));*/
 
 	width: 100%;
 	gap: 1rem;
@@ -106,11 +107,15 @@ main {
 #forecast .day-card {
 	display: flex;
 	flex-direction: column;
+	opacity: 0;
+	animation: fadeIn 500ms forwards;
+	animation-delay: calc(250ms * var(--delay));
+
 	flex-grow: 1;
 	height: 10em;
 	/*backdrop-filter: blur(100px);*/
 	padding: 1rem;
-	animation: bounceIn 500ms forwards;
+	/*animation: bounceIn 500ms forwards;*/
 
 }
 
@@ -155,6 +160,10 @@ main {
 
 #hourly-controls input {
 	width: 100%;
+}
+
+#open-map i {
+	font-size: 2rem;
 }
 
 .weather-icon svg {

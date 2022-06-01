@@ -1,12 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
     <head>
-        <meta charset="UTF-8">
+        <meta http-equiv="Content-Type" content="text/html;charset=utf-8"/>
         <title>Weather Map</title>
         <script src='https://api.mapbox.com/mapbox-gl-js/v2.8.2/mapbox-gl.js'></script>
         <script src="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v5.0.0/mapbox-gl-geocoder.min.js"></script>
 
-        <link rel="stylesheet" href="./css/weather_map/main.css">
+        <link rel="stylesheet" href="./css/weather_map/main.css" type="text/css">
         <link href='https://api.mapbox.com/mapbox-gl-js/v2.8.2/mapbox-gl.css' rel='stylesheet'/>
         <link rel="stylesheet"
               href="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v5.0.0/mapbox-gl-geocoder.css"
@@ -20,21 +20,11 @@
                 </div>
                 <div id="today-forecast">
                     <div id="today-card">
-                        <div class="temp">88</div>
-                        <div class="ltd-container">
-                            <!--<div class="welcome">Good Morning</div>-->
-                            <div class="location"></div>
-                            <div class="time">12:23PM</div>
-                            <div class="day">Fri. May 27</div>
-                        </div>
-                        <div class="desc-container">
-                            <div class="desc-icon"></div>
-                            <div class="desc"></div>
-                        </div>
+
                     </div>
 
                     <div id="hourly-controls">
-                        <input type="range" min="0" max="15" value="0" id="time-range" list="hourly-ticks">
+                        <input type="range" min="0" max="15" value="0" id="time-range" list="hourly-ticks" autofocus>
                         <datalist id="hourly-ticks">
                             <option value="0" label="now"></option>
                             <option value="1"></option>
@@ -65,7 +55,7 @@
 
             <!--    </div>-->
             <!--</section>-->
-            <button id="open-map"><</button>
+            <button id="open-map"><i class="fa-solid fa-map-location-dot"></i></button>
             <section id="map-container">
                 <div class="exit">X</div>
                 <div id="geocoder" class="geocoder"></div>
@@ -76,11 +66,9 @@
         <div id="bg">
             <div id="night-gradient">
                 <div class="stars"></div>
-
-
             </div>
             <div id="dusk-gradient">
-                <div class="night-clouds"></div>
+                <div class="morning-clouds"></div>
             </div>
             <div id="day-gradient">
                 <div class="night-clouds"></div>

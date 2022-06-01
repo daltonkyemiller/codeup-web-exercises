@@ -32,7 +32,6 @@ const htmlToElement = (html) => {
     return template.content.firstChild;
 };
 
-
 // ############################################################ //
 
 let MODAL;

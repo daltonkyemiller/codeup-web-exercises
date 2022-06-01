@@ -22,6 +22,7 @@ const MAP_GEOCODER = new MapboxGeocoder({
 
 document.getElementById('geocoder').appendChild(MAP_GEOCODER.onAdd(MAP));
 const mapContainer = $('#map-container');
+// mapContainer.find('*').attr('tabIndex', '-1');
 $('#open-map').click(() => {
     mapContainer.toggleClass('show');
 
