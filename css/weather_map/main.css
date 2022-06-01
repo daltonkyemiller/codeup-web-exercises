@@ -96,6 +96,7 @@ main {
 	padding: 0 1rem 1rem 1rem;
 }
 
+
 #forecast-daily-cards .desc-container {
 	gap: .5rem;
 
@@ -109,6 +110,8 @@ main {
 	height: 10em;
 	/*backdrop-filter: blur(100px);*/
 	padding: 1rem;
+	animation: bounceIn 500ms forwards;
+
 }
 
 #forecast .day-card .day {
