@@ -15,6 +15,7 @@ const MAP_MARKER = new mapboxgl.Marker({
 
 const MAP_GEOCODER = new MapboxGeocoder({
     accessToken: MAPBOX_API_KEY,
+    marker: false,
     mapboxgl: mapboxgl
 });
 

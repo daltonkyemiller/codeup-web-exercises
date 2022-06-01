@@ -27,6 +27,27 @@ const DayCard = (day, temp, desc) => {
     };
 };
 
+const TodayCard = (temp, location, time, day, desc) => {
+    return {
+        //language=HTML
+        element: htmlToElement(`
+            <div id="today-card">
+                <div class="temp">${temp}</div>
+                <div class="ltd-container">
+                    <!--<div class="welcome">Good Morning</div>-->
+                    <div class="location">${location}</div>
+                    <div class="time">${time}</div>
+                    <div class="day">${day}</div>
+                </div>
+                <div class="desc-container">
+                    <div class="desc-icon">${desc.icon}</div>
+                    <div class="desc">${desc.label}</div>
+                </div>
+            </div>
+        `)
+    };
+};
+
 const WeatherIcon = (code) => {
     let icon;
     if (code >= 200) icon = WEATHER_ICONS.THUNDERSTORM;
@@ -128,14 +149,21 @@ const setCurrentCard = (weatherData, date) => {
     const todayCard = $('#today-card');
     let welcomeMsg = 'Good ' + getTimeOfDay(date);
 
-    todayCard.find('.time').html(time);
-    todayCard.find('.day').html(date.toLocaleDateString('en-US'));
-    todayCard.find('.temp').html(weatherData.temp);
-    todayCard.find('.welcome').html(welcomeMsg);
-    todayCard.find('.desc').html(weatherData.weather[0].description);
-    todayCard.find('.location').html(variables.location);
+    todayCard.fadeOut('fast', () => {
+        todayCard.replaceWith(TodayCard(weatherData.temp, variables.location, time, date.toLocaleDateString('en-US'), {
+            label: weatherData.weather[0].description,
+            icon: WeatherIcon(weatherData.weather[0].id)
+        }).element);
+    });
 
-    todayCard.find('.desc-icon').html(WeatherIcon(weatherData.weather[0].id));
+    // todayCard.find('.time').html(time);
+    // todayCard.find('.day').html(date.toLocaleDateString('en-US'));
+    // todayCard.find('.temp').html(weatherData.temp);
+    // todayCard.find('.welcome').html(welcomeMsg);
+    // todayCard.find('.desc').html(weatherData.weather[0].description);
+    // todayCard.find('.location').html(variables.location);
+    //
+    // todayCard.find('.desc-icon').html(WeatherIcon(weatherData.weather[0].id));
 };
 
 const initTimeSlider = () => {
@@ -194,4 +222,13 @@ MAP_MARKER.on('dragend', (e) => {
             variables.location = cityFromAddress(place.features[2].place_name);
             renderData();
         });
+});
+
+MAP_GEOCODER.on('result', (e) => {
+    variables.location = e.result.place_name;
+    MAP_MARKER.setLngLat({ lon: e.result.center[0], lat: e.result.center[1] });
+    MAP.flyTo({
+        center: e.result.center
+    });
+    renderData();
 });

@@ -17,6 +17,7 @@ main {
 	position: relative;
 	display: flex;
 	height: 100%;
+	overflow-x: hidden;
 }
 
 
@@ -39,9 +40,12 @@ main {
 
 #forecast #today-forecast #today-card {
 	display: flex;
+	align-items: flex-end;
 	gap: 1rem;
+}
 
-
+#today-card * {
+	animation: bounceIn 500ms forwards;
 }
 
 #today-card .temp {
@@ -76,10 +80,6 @@ main {
 	align-items: center;
 }
 
-#today-card .desc-container .desc-icon img {
-	width: 3rem;
-}
-
 
 #today-forecast .temp::after {
 	content: '°';
@@ -87,18 +87,17 @@ main {
 
 
 #forecast #forecast-daily-cards {
-	display: flex;
+	display: grid;
+	grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+	justify-items: center;
 
 	width: 100%;
-	justify-content: space-around;
-	align-items: flex-end;
 	gap: 1rem;
 	padding: 0 1rem 1rem 1rem;
 }
 
 #forecast-daily-cards .desc-container {
 	gap: .5rem;
-
 
 }
 
@@ -156,7 +155,7 @@ main {
 }
 
 .weather-icon svg {
-	width: 3em;
+	width: 2.5rem;
 
 }
 

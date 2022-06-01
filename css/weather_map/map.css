@@ -1,11 +1,12 @@
 #map {
-	width: 500px;
-	height: 500px;
+	width: 25vmax;
+	height: 25vmax;
 	border-radius: 50%;
 }
 
 #map-container {
 	position: absolute;
+
 	backdrop-filter: blur(25px);
 	height: 100vh;
 	padding: 1rem;
@@ -25,7 +26,9 @@
 
 #map-container #geocoder {
 	position: relative;
-	top: 5em;
+	top: 5vmax;
+
+
 }
 
 #map-container .exit {
