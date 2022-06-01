@@ -1,9 +1,17 @@
 let darkMode = JSON.parse(localStorage.getItem('darkMode'));
 if (darkMode) document.body.classList.add('dark-mode');
 
+const themeChangeEvent = new CustomEvent('themechange');
+
+
 const toggleDarkMode = () => {
-    if (!darkMode) localStorage.setItem('darkMode', 'true');
-    else localStorage.setItem('darkMode', 'false');
+    if (!darkMode) {
+        darkMode = true;
+        localStorage.setItem('darkMode', 'true');
+    } else {
+        localStorage.setItem('darkMode', 'false');
+        darkMode = false;
+    }
     document.body.classList.toggle('dark-mode');
 };
 const setDarkMode = (val) => {
@@ -20,6 +28,7 @@ const initThemeSwitcher = () => {
     document.body.prepend(modeSwitchBtn);
     modeSwitchBtn.addEventListener('click', (e) => {
         toggleDarkMode();
+        document.dispatchEvent(themeChangeEvent);
     });
 };
 initThemeSwitcher();

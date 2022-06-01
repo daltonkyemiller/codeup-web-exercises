@@ -2,7 +2,7 @@ mapboxgl.accessToken = MAPBOX_API_KEY;
 let lightMode = false;
 const MAP = new mapboxgl.Map({
     container: 'map', // container ID
-    style: 'mapbox://styles/mapbox/navigation-night-v1', // style URL
+    style: 'mapbox://styles/mapbox/dark-v10', // style URL
     center: [-114.46599678089287, 42.64074126204625], // starting position [lng, lat]
     zoom: 10 // starting zoom
 });
@@ -23,16 +23,13 @@ const MAP_GEOCODER = new MapboxGeocoder({
 document.getElementById('geocoder').appendChild(MAP_GEOCODER.onAdd(MAP));
 const mapContainer = $('#map-container');
 // mapContainer.find('*').attr('tabIndex', '-1');
-$('#open-map').click(() => {
+$('#open-map').click(function () {
     mapContainer.toggleClass('show');
-
+    // Remove focus from the button
+    $(this).blur();
 });
 $('#map-container .exit').click(() => {
     mapContainer.removeClass('show');
-});
-$('').click((e) => {
-    console.log('hi');
-    if (mapContainer.hasClass('show')) mapContainer.removeClass('show');
 });
 
 // const MAP_GEOCODER = new mapboxgl.GeoC;

@@ -1,8 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
     <head>
-        <meta http-equiv="Content-Type" content="text/html;charset=utf-8"/>
         <title>Weather Map</title>
+        <meta name="viewport"
+              content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
         <script src='https://api.mapbox.com/mapbox-gl-js/v2.8.2/mapbox-gl.js'></script>
         <script src="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v5.0.0/mapbox-gl-geocoder.min.js"></script>
 
@@ -26,7 +28,7 @@
                     <div id="hourly-controls">
                         <input type="range" min="0" max="15" value="0" id="time-range" list="hourly-ticks" autofocus>
                         <datalist id="hourly-ticks">
-                            <option value="0" label="now"></option>
+                            <option value="0"></option>
                             <option value="1"></option>
                             <option value="2"></option>
                             <option value="3"></option>
@@ -42,22 +44,13 @@
                             <option value="13"></option>
                             <option value="14"></option>
                             <option value="15"></option>
-
                         </datalist>
                     </div>
                 </div>
             </section>
-            <!--<section id="forecast-controls">-->
-            <!--    <div class="body">-->
-            <!--        <form id="search-form">-->
-            <!--            <input type="text" id="location-search">-->
-            <!--        </form>-->
-
-            <!--    </div>-->
-            <!--</section>-->
             <button id="open-map"><i class="fa-solid fa-map-location-dot"></i></button>
             <section id="map-container">
-                <div class="exit">X</div>
+                <div class="exit"><i class="fa-solid fa-xmark"></i></div>
                 <div id="geocoder" class="geocoder"></div>
 
                 <div id="map"></div>

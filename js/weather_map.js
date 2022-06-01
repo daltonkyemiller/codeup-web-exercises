@@ -3,8 +3,11 @@ import { WEATHER_ICONS } from './weather_map/icons.js';
 import { MOCK_WEATHER_DATA } from './weather_map/placeholder_data.js';
 
 const OPEN_WEATHER_ENDPOINT = 'https://api.openweathermap.org/data/2.5/onecall';
+
+
+// Application's State, Different State Changes Update Different Components
 const STATE = {
-    location: 'San Antonio, TX',
+    location: 'A Place, In the World',
     currTime: new Date(),
     userSetTime: new Date(),
     units: 'imperial',
@@ -31,16 +34,22 @@ const STATE = {
     setUnits: (newUnits) => updateState(() => STATE.units = newUnits),
     setWeatherData: (newWeatherData) => updateState(() => STATE.weatherData = newWeatherData)
 };
+
+// Function to Update State and Redraw entire app
 const updateState = (callback) => {
     callback();
     redraw();
 };
-const replaceEl = (oldEl, newEl, options = { fadeOutSpeed: 400 }) => {
+
+// Helper Function to animate a component change
+const animatedReplaceElement = (oldEl, newEl, options = { fadeOutSpeed: 400 }) => {
     oldEl.fadeTo(options.fadeOutSpeed, 0, 'swing', () => {
         oldEl.replaceWith(newEl);
     });
 };
 
+
+// ############################## COMPONENTS ############################## //
 
 // Card Component for Daily Forecast
 const DayCard = (day, temp, desc, idx) => {
@@ -49,7 +58,7 @@ const DayCard = (day, temp, desc, idx) => {
         element: htmlToElement(`
             <div class="day-card" style="--delay: ${idx}">
                 <div class="day">${day}</div>
-                <div class="temp">${temp}</div>
+                <div class="temp">${temp}°</div>
                 <div class="desc-container">
                     <div class="desc">${desc.desc}</div>
                     <div class="desc-img">${WeatherIcon(desc.iconCode)}</div>
@@ -66,12 +75,12 @@ const TodayCard = (temp, location, time, day, desc) => {
         //language=HTML
         element: htmlToElement(`
             <div id="today-card">
-                <div class="temp">${temp}</div>
+                <div class="temp">${temp}°</div>
                 <div class="ltd-container">
                     <!--<div class="welcome">Good Morning</div>-->
                     <div class="location">${location}</div>
-                    <div class="time">${time}</div>
-                    <div class="day">${day}</div>
+                    <div class="time">${getCurrentTime()}</div>
+                    <div class="day">&nbsp;•&nbsp;${day}</div>
                 </div>
                 <div class="desc-container">
                     <div class="desc-icon">${desc.icon}</div>
@@ -100,6 +109,9 @@ const WeatherIcon = (code) => {
         <div class="weather-icon">${icon}</div>`;
 };
 
+// ############################## END COMPONENTS ############################## //
+
+
 // Times for Gradient and Greeting
 const TIMES = {
     MORNING: 'morning',
@@ -107,7 +119,6 @@ const TIMES = {
     EVENING: 'evening',
     NIGHT: 'night'
 };
-
 
 // Returns the Current Time of Day
 const getTimeOfDay = (date) => {
@@ -190,13 +201,15 @@ const setDailyWeatherCards = (weatherData, numOfCards) => {
         });
     const dailyCards = $('#forecast-daily-cards');
     const newDailyCards = dailyCards.clone().html(cards);
-    replaceEl(dailyCards, newDailyCards);
+    animatedReplaceElement(dailyCards, newDailyCards);
 
     // $('#forecast-daily-cards').fadeTo(500, 0, 'swing', function () {
     //     $(this).html(cards);
     //     $(this).fadeTo(500, 1);
     // });
 };
+
+// Renders the current weather card
 const setCurrentCard = (date) => {
     const currentData = STATE.weatherData.hourly.reduce((accum, curr) => {
         const time = STATE.userSetTime.getTime() / 1000;
@@ -204,19 +217,21 @@ const setCurrentCard = (date) => {
     });
     const fadeOutSpeed = 400;
     const todayCard = $('#today-card');
-    const time = date.toLocaleTimeString([], { hour: 'numeric', minute: '2-digit' });
+    const time = date.toLocaleTimeString([], { hour: 'numeric', minute: '2-digit', second: 'numeric' });
 
     const newCard = TodayCard(currentData.temp, STATE.location, time, date.toLocaleDateString('en-US'), {
         label: currentData.weather[0].description,
         icon: WeatherIcon(currentData.weather[0].id)
     }).element;
 
-    replaceEl(todayCard, newCard);
+    animatedReplaceElement(todayCard, newCard);
 };
 
-
+// Initializes the time slider, gets current time and adds labels to the ticks
 const initTimeSlider = () => {
-    $('#hourly-ticks').children().each((idx, option) => {
+    const ticks = $('#hourly-ticks').children();
+    ticks.each((idx, option) => {
+        if (idx % 2 === 1) return;
         const hours = new Date();
         hours.setHours(STATE.currTime.getHours() + idx);
         const am = hours.getHours() < 12;
@@ -224,6 +239,7 @@ const initTimeSlider = () => {
     });
 };
 
+// Redraws entire application
 const redraw = () => {
     initTimeSlider();
     setDailyWeatherCards(STATE.weatherData, 7);
@@ -231,6 +247,8 @@ const redraw = () => {
     setBG(STATE.userSetTime);
 };
 
+// If the browser supports geolocation, then set a modal updating the user
+// Else just draw the app with the placeholder data
 if (navigator.geolocation) {
     setModal({ title: 'Getting your location...' });
     navigator.geolocation.getCurrentPosition(
@@ -249,7 +267,10 @@ if (navigator.geolocation) {
     redraw();
 }
 
-$('#time-range').change((e) => {
+// ############################## EVENT LISTENERS ############################## //
+const timeRange = $('#time-range');
+
+timeRange.change((e) => {
     const newDate = new Date();
     newDate.setHours(new Date().getHours() + parseInt(e.target.value));
     STATE.setUserSetTime(newDate);
@@ -259,7 +280,18 @@ $('#search-form').submit((e) => {
     e.preventDefault();
     STATE.setLocation($('#location-search').val());
 });
+$(document).on('keydown', (e) => {
+    const mapContainer = $('#map-container');
+    if (e.key === ' ' && !mapContainer.find('*').is(':focus')) mapContainer.toggleClass('show');
+    if (!timeRange.is(':focus')) {
+        if (e.key === 'ArrowLeft' || e.key === 'ArrowRight') timeRange.focus();
+    }
 
+});
+$(document).on('themechange', (e) => {
+    if (darkMode) MAP.setStyle('mapbox://styles/mapbox/light-v10');
+    else MAP.setStyle('mapbox://styles/mapbox/dark-v10');
+});
 
 MAP_MARKER.on('dragend', (e) => {
     reverseGeocode(e.target._lngLat, MAPBOX_API_KEY)
@@ -271,4 +303,16 @@ MAP_MARKER.on('dragend', (e) => {
 
 MAP_GEOCODER.on('result', (e) => {
     STATE.setLocation(e.result.place_name);
+});
+// ############################## END EVENT LISTENERS ############################## //
+
+setInterval(() => {
+    $('#today-card .time').text(getCurrentTime());
+}, 1000);
+
+
+const getCurrentTime = () => new Date().toLocaleTimeString([], {
+    hour: 'numeric',
+    minute: '2-digit',
+    second: 'numeric'
 });

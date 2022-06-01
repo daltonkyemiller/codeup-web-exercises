@@ -1,0 +1,31 @@
+#theme-switcher {
+	z-index: 5;
+	position: absolute;
+	top: 0;
+	right: 0;
+}
+
+#modal {
+	display: flex;
+	justify-content: center;
+	position: absolute;
+
+	width: 50vw;
+	top: 0;
+	left: 50%;
+	background-color: var(--fg-color);
+	color: var(--bg-color);
+	transform: translateX(-50%);
+}
+
+#modal.error {
+	color: #871F38;
+}
+
+#modal-exit {
+	position: absolute;
+	cursor: pointer;
+	font-size: 2rem;
+	top: 0;
+	right: .75rem;
+}

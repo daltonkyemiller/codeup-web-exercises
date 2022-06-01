@@ -1,6 +1,7 @@
 @import url("https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css");
 @import url("https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css");
 @import "vars.css";
+@import "components.css";
 
 @font-face {
 	font-family: 'Inter';
@@ -16,7 +17,6 @@
 
 
 body {
-
 	background-color: var(--bg-color);
 	color: var(--fg-color);
 	animation: fadeIn 500ms forwards;
@@ -24,9 +24,8 @@ body {
 }
 
 body.dark-mode {
-	--bg-color: var(--dark-color);
-	--fg-color: var(--light-color);
-
+	--bg-color: var(--dark-color) !important;
+	--fg-color: var(--light-color) !important;
 }
 
 nav {
@@ -53,7 +52,7 @@ button {
 	padding: 1em;
 	color: var(--fg-color);
 	background-color: var(--bg-color);
-	border: 1px solid var(--bg-color);
+	border: 1px solid var(--fg-color);
 	transition: all 500ms;
 	cursor: pointer;
 }
@@ -82,13 +81,11 @@ input[type="text"]:focus.text-input {
 }
 
 input[type="range"] {
-	color: red !important;
 	-webkit-appearance: none;
 	appearance: none;
 	background: transparent;
 	cursor: pointer;
 	outline: none;
-
 	--range-border-radius: 10px;
 }
 
@@ -103,7 +100,7 @@ input[type="range"]::-webkit-slider-runnable-track {
 }
 
 input[type="range"]::-moz-range-track {
-	background-color: var(--bg-color);
+	background-color: var(--fg-color);
 	height: 1rem;
 	border-radius: var(--range-border-radius);
 	transition: all 500ms;
@@ -115,7 +112,7 @@ input[type="range"]::-webkit-slider-thumb {
 	-webkit-appearance: none; /* Override default look */
 	appearance: none;
 	margin-top: -.5rem; /* Centers thumb on the track */
-	background-color: var(--bg-color);
+	background-color: var(--bg-color) !important;
 	height: 2rem;
 	width: 2rem;
 	border-radius: 50%;
@@ -149,34 +146,3 @@ select {
 	outline: none;
 }
 
-#theme-switcher {
-	z-index: 5;
-	position: absolute;
-	top: 0;
-	right: 0;
-}
-
-#modal {
-	display: flex;
-	justify-content: center;
-	position: absolute;
-
-	width: 50vw;
-	top: 0;
-	left: 50%;
-	background-color: var(--fg-color);
-	color: var(--bg-color);
-	transform: translateX(-50%);
-}
-
-#modal.error {
-	color: #871F38;
-}
-
-#modal-exit {
-	position: absolute;
-	cursor: pointer;
-	font-size: 2rem;
-	top: 0;
-	right: .75rem;
-}
