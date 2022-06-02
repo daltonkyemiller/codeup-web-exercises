@@ -41,13 +41,14 @@ const updateState = (callback) => {
     redraw();
 };
 
-// Helper Function to animate a component change
+// Helper function to animate a component change
 const animatedReplaceElement = (oldEl, newEl, options = { fadeOutSpeed: 400 }) => {
     oldEl.fadeTo(options.fadeOutSpeed, 0, 'swing', () => {
         oldEl.replaceWith(newEl);
     });
 };
 
+// Gets the current time in specific format
 const getCurrentTime = () => new Date().toLocaleTimeString([], {
     hour: 'numeric',
     minute: '2-digit',
@@ -69,7 +70,7 @@ const DayCard = (day, temp, desc, idx) => {
                     <div class="desc-img">${WeatherIcon(desc.iconCode)}</div>
                 </div>
             </div>
-        `)
+        `),
     };
 };
 
@@ -106,7 +107,6 @@ const WeatherIcon = (code) => {
     if (code >= 700) icon = WEATHER_ICONS.ATMOSPHERE;
     if (code >= 800) icon = WEATHER_ICONS.SUNNY;
     if (code >= 801) icon = WEATHER_ICONS.FEW_CLOUDS;
-
 
     //language=HTML
     return `
@@ -197,7 +197,10 @@ const setDailyWeatherCards = (weatherData, numOfCards) => {
         .filter((day, idx) => idx <= numOfCards && idx > 0)
         .map((day, idx) => {
             const date = new Date(day.dt * 1000);
-            return $(DayCard(date.toDateString(), day.temp.day, {
+            return $(DayCard(
+                date.toDateString(),
+                day.temp.day,
+                {
                     desc: day.weather[0].description,
                     iconCode: day.weather[0].id,
                 },
@@ -254,27 +257,28 @@ const redraw = () => {
 
 // If the browser supports geolocation, then set a modal updating the user
 // Else just draw the app with the placeholder data
-// if (navigator.geolocation) {
-//     setModal({ title: 'Getting your location...' });
-//     navigator.geolocation.getCurrentPosition(
-//         (pos) => {
-//             reverseGeocode({ lng: pos.coords.longitude, lat: pos.coords.latitude }, MAPBOX_API_KEY)
-//                 .then(place => {
-//                     MODAL.close();
-//                     STATE.setLocation(getBestFeature(place.features).place_name);
-//                 });
-//         },
-//         (error) => {
-//             MODAL.close();
-//             redraw();
-//         });
-// } else {
-//     redraw();
-// }
-redraw();
+if (navigator.geolocation) {
+    setModal({ title: 'Getting your location...' });
+    navigator.geolocation.getCurrentPosition(
+        (pos) => {
+            reverseGeocode({ lng: pos.coords.longitude, lat: pos.coords.latitude }, MAPBOX_API_KEY)
+                .then(place => {
+                    MODAL.close();
+                    STATE.setLocation(getBestFeature(place.features).place_name);
+                });
+        },
+        (error) => {
+            MODAL.close();
+            redraw();
+        });
+} else {
+    redraw();
+}
 
 
 // ############################## EVENT LISTENERS ############################## //
+
+// Range slider to change time
 const timeRange = $('#time-range');
 
 timeRange.change((e) => {
@@ -313,6 +317,7 @@ MAP_GEOCODER.on('result', (e) => {
 });
 // ############################## END EVENT LISTENERS ############################## //
 
+// Update display time
 setInterval(() => {
     $('#today-card .time').text(getCurrentTime());
 }, 1000);
