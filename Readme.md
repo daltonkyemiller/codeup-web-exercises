@@ -10,7 +10,7 @@ HTML, CSS, and Javascript web exercises from my time at [codeup](https://codeup.
 
 ![Desktop Demo](./readme/images/weather_map_desktop.gif)
 
-#### Build With
+#### Built With
 
 - HTML
 - CSS
@@ -32,7 +32,7 @@ HTML, CSS, and Javascript web exercises from my time at [codeup](https://codeup.
 
 ![Desktop Demo](./readme/images/konami_desktop.gif)
 
-#### Build With
+#### Built With
 
 - HTML
 - CSS
