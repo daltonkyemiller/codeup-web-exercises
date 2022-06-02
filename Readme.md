@@ -28,7 +28,7 @@ HTML, CSS, and Javascript web exercises from my time at [codeup](https://codeup.
 - Component renders based on the application state change
 - Components are animated in/out when they update, and before they die
 
-### Konami Code Project
+### Konami Code
 
 ![Desktop Demo](./readme/images/konami_desktop.gif)
 
