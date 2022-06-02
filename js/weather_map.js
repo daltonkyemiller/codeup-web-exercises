@@ -48,6 +48,11 @@ const animatedReplaceElement = (oldEl, newEl, options = { fadeOutSpeed: 400 }) =
     });
 };
 
+const getCurrentTime = () => new Date().toLocaleTimeString([], {
+    hour: 'numeric',
+    minute: '2-digit',
+    second: 'numeric'
+});
 
 // ############################## COMPONENTS ############################## //
 
@@ -64,7 +69,6 @@ const DayCard = (day, temp, desc, idx) => {
                     <div class="desc-img">${WeatherIcon(desc.iconCode)}</div>
                 </div>
             </div>
-
         `)
     };
 };
@@ -188,6 +192,7 @@ const setBG = (date) => {
 
 // Renders the daily weather cards
 const setDailyWeatherCards = (weatherData, numOfCards) => {
+    console.log(weatherData.daily);
     let cards = weatherData.daily
         .filter((day, idx) => idx <= numOfCards && idx > 0)
         .map((day, idx) => {
@@ -231,7 +236,7 @@ const setCurrentCard = (date) => {
 const initTimeSlider = () => {
     const ticks = $('#hourly-ticks').children();
     ticks.each((idx, option) => {
-        if (idx % 2 === 1) return;
+        if (idx % 2 === 0) return;
         const hours = new Date();
         hours.setHours(STATE.currTime.getHours() + idx);
         const am = hours.getHours() < 12;
@@ -249,23 +254,25 @@ const redraw = () => {
 
 // If the browser supports geolocation, then set a modal updating the user
 // Else just draw the app with the placeholder data
-if (navigator.geolocation) {
-    setModal({ title: 'Getting your location...' });
-    navigator.geolocation.getCurrentPosition(
-        (pos) => {
-            reverseGeocode({ lng: pos.coords.longitude, lat: pos.coords.latitude }, MAPBOX_API_KEY)
-                .then(place => {
-                    MODAL.close();
-                    STATE.setLocation(getBestFeature(place.features).place_name);
-                });
-        },
-        (error) => {
-            MODAL.close();
-            redraw();
-        });
-} else {
-    redraw();
-}
+// if (navigator.geolocation) {
+//     setModal({ title: 'Getting your location...' });
+//     navigator.geolocation.getCurrentPosition(
+//         (pos) => {
+//             reverseGeocode({ lng: pos.coords.longitude, lat: pos.coords.latitude }, MAPBOX_API_KEY)
+//                 .then(place => {
+//                     MODAL.close();
+//                     STATE.setLocation(getBestFeature(place.features).place_name);
+//                 });
+//         },
+//         (error) => {
+//             MODAL.close();
+//             redraw();
+//         });
+// } else {
+//     redraw();
+// }
+redraw();
+
 
 // ############################## EVENT LISTENERS ############################## //
 const timeRange = $('#time-range');
@@ -311,8 +318,3 @@ setInterval(() => {
 }, 1000);
 
 
-const getCurrentTime = () => new Date().toLocaleTimeString([], {
-    hour: 'numeric',
-    minute: '2-digit',
-    second: 'numeric'
-});

@@ -13,8 +13,8 @@
 	width: 50vw;
 	top: 0;
 	left: 50%;
-	background-color: var(--fg-color);
-	color: var(--bg-color);
+	background-color: rgb(var(--fg-color));
+	color: rgb(var(--bg-color));
 	transform: translateX(-50%);
 }
 

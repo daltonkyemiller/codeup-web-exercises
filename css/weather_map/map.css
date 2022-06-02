@@ -20,7 +20,7 @@
 
 @supports not (backdrop-filter: blur(25px)) {
 	#map-container {
-		background-color: var(--bg-color);
+		background-color: rgb(var(--bg-color) / .5);
 	}
 }
 

@@ -17,8 +17,8 @@
 
 
 body {
-	background-color: var(--bg-color);
-	color: var(--fg-color);
+	background-color: rgb(var(--bg-color));
+	color: rgb(var(--fg-color));
 	animation: fadeIn 500ms forwards;
 	transition: all 500ms ease-in-out;
 }
@@ -50,16 +50,16 @@ ul {
 
 button {
 	padding: 1em;
-	color: var(--fg-color);
-	background-color: var(--bg-color);
-	border: 1px solid var(--fg-color);
+	color: rgb(var(--fg-color));
+	background-color: rgb(var(--bg-color));
+	border: 1px solid rgb(var(--fg-color));
 	transition: all 500ms;
 	cursor: pointer;
 }
 
 button:hover {
-	color: var(--bg-color);
-	background: var(--fg-color);
+	color: rgb(var(--bg-color));
+	background: rgb(var(--fg-color));
 }
 
 button:focus {
@@ -67,12 +67,12 @@ button:focus {
 }
 
 input[type="text"].text-input {
-	color: var(--fg-color);
+	color: rgb(var(--fg-color));
 	background: none;
 
 	outline: none;
 	border: none;
-	border-bottom: 2px solid var(--fg-color);
+	border-bottom: 2px solid rgb(var(--fg-color));
 	transition: border-bottom-width .5s ease-in-out;
 }
 
@@ -91,7 +91,7 @@ input[type="range"] {
 
 
 input[type="range"]::-webkit-slider-runnable-track {
-	background-color: var(--fg-color);
+	background-color: rgb(var(--fg-color));
 	height: 1rem;
 	border-radius: var(--range-border-radius);
 	transition: all 500ms;
@@ -100,7 +100,7 @@ input[type="range"]::-webkit-slider-runnable-track {
 }
 
 input[type="range"]::-moz-range-track {
-	background-color: var(--fg-color);
+	background-color: rgb(var(--fg-color));
 	height: 1rem;
 	border-radius: var(--range-border-radius);
 	transition: all 500ms;
@@ -112,7 +112,7 @@ input[type="range"]::-webkit-slider-thumb {
 	-webkit-appearance: none; /* Override default look */
 	appearance: none;
 	margin-top: -.5rem; /* Centers thumb on the track */
-	background-color: var(--bg-color) !important;
+	background-color: rgb(var(--bg-color)) !important;
 	height: 2rem;
 	width: 2rem;
 	border-radius: 50%;
@@ -124,7 +124,7 @@ input[type="range"]::-moz-range-thumb {
 	-webkit-appearance: none; /* Override default look */
 	appearance: none;
 	margin-top: -.5rem; /* Centers thumb on the track */
-	background-color: var(--bg-color);
+	background-color: rgb(var(--bg-color));
 	height: 2rem;
 	width: 2rem;
 	border-radius: 50%;
