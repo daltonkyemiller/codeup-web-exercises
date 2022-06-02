@@ -154,7 +154,7 @@
 
 .window::before {
 	position: absolute;
-	content: 'Singles in your area!';
+	content: 'You win.';
 	color: white;
 	padding: .1em 0 .1em .2em;
 	border-radius: 5px;

@@ -32,7 +32,7 @@
 }
 
 #moon {
-
+	display: none;
 	overflow: hidden;
 	filter: contrast(125%);
 	mix-blend-mode: screen;

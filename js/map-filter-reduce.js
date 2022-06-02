@@ -58,4 +58,5 @@ const uniqueLanguages = users.reduce((acc, curr) => {
     }
 }, []);
 
+
 console.log(uniqueLanguages);
