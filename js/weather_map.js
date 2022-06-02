@@ -257,23 +257,24 @@ const redraw = () => {
 
 // If the browser supports geolocation, then set a modal updating the user
 // Else just draw the app with the placeholder data
-if (navigator.geolocation) {
-    setModal({ title: 'Getting your location...' });
-    navigator.geolocation.getCurrentPosition(
-        (pos) => {
-            reverseGeocode({ lng: pos.coords.longitude, lat: pos.coords.latitude }, MAPBOX_API_KEY)
-                .then(place => {
-                    MODAL.close();
-                    STATE.setLocation(getBestFeature(place.features).place_name);
-                });
-        },
-        (error) => {
-            MODAL.close();
-            redraw();
-        });
-} else {
-    redraw();
-}
+// if (navigator.geolocation) {
+//     setModal({ title: 'Getting your location...' });
+//     navigator.geolocation.getCurrentPosition(
+//         (pos) => {
+//             reverseGeocode({ lng: pos.coords.longitude, lat: pos.coords.latitude }, MAPBOX_API_KEY)
+//                 .then(place => {
+//                     MODAL.close();
+//                     STATE.setLocation(getBestFeature(place.features).place_name);
+//                 });
+//         },
+//         (error) => {
+//             MODAL.close();
+//             redraw();
+//         });
+// } else {
+//     redraw();
+// }
+redraw();
 
 
 // ############################## EVENT LISTENERS ############################## //
