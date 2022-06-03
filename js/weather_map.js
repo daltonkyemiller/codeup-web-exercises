@@ -1,6 +1,9 @@
 'use strict';
 import { WEATHER_ICONS } from './weather_map/icons.js';
 import { MOCK_WEATHER_DATA } from './weather_map/placeholder_data.js';
+import { MAPBOX_API_KEY, OPEN_WEATHER_KEY } from './keys.js';
+import { geocode, reverseGeocode } from './mapbox-geocoder-utils.js';
+import { MAP, MAP_GEOCODER, MAP_MARKER } from './weather_map/map.js';
 
 const OPEN_WEATHER_ENDPOINT = 'https://api.openweathermap.org/data/2.5/onecall';
 
@@ -257,24 +260,23 @@ const redraw = () => {
 
 // If the browser supports geolocation, then set a modal updating the user
 // Else just draw the app with the placeholder data
-// if (navigator.geolocation) {
-//     setModal({ title: 'Getting your location...' });
-//     navigator.geolocation.getCurrentPosition(
-//         (pos) => {
-//             reverseGeocode({ lng: pos.coords.longitude, lat: pos.coords.latitude }, MAPBOX_API_KEY)
-//                 .then(place => {
-//                     MODAL.close();
-//                     STATE.setLocation(getBestFeature(place.features).place_name);
-//                 });
-//         },
-//         (error) => {
-//             MODAL.close();
-//             redraw();
-//         });
-// } else {
-//     redraw();
-// }
-redraw();
+if (navigator.geolocation) {
+    setModal({ title: 'Getting your location...' });
+    navigator.geolocation.getCurrentPosition(
+        (pos) => {
+            reverseGeocode({ lng: pos.coords.longitude, lat: pos.coords.latitude }, MAPBOX_API_KEY)
+                .then(place => {
+                    MODAL.close();
+                    STATE.setLocation(getBestFeature(place.features).place_name);
+                });
+        },
+        (error) => {
+            MODAL.close();
+            redraw();
+        });
+} else {
+    redraw();
+}
 
 
 // ############################## EVENT LISTENERS ############################## //

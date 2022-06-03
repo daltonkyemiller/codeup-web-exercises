@@ -1,3 +1,6 @@
+import { MAPBOX_API_KEY } from './keys.js';
+import { reverseGeocode } from './mapbox-geocoder-utils.js';
+
 (() => {
     // ############################## MAPBOX INIT ############################## //
     mapboxgl.accessToken = MAPBOX_API_KEY;
@@ -7,7 +10,7 @@
         center: [-114.46599678089287, 42.64074126204625], // starting position [lng, lat]
         zoom: 10 // starting zoom
     });
-   
+
 
     const searchMarkerPopup = new mapboxgl.Popup();
     const customMarker = $('#marker').get();
