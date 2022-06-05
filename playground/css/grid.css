@@ -1,0 +1,46 @@
+@import "../../css/defaults/defaults.css";
+
+body {
+	min-height: 100vh;
+
+}
+
+
+body {
+	--grid-thickness: 5%;
+}
+
+.grid {
+	position: absolute;
+	content: '';
+	inset: 0;
+	background: linear-gradient(to right, rgb(var(--fg-color)) var(--grid-thickness), transparent var(--grid-thickness)),
+	linear-gradient(to bottom, rgb(var(--fg-color)) var(--grid-thickness), transparent var(--grid-thickness));
+	background-size: 5vmin 5vmin;
+
+
+	--mask-image: radial-gradient(circle, rgb(var(--fg-color)) 25%, transparent 50%);
+	--mask-size: 1000px 1000px;
+	--mask-position: 50%;
+	--mask-repeat: no-repeat;
+
+	-webkit-mask-image: var(--mask-image);
+	mask-image: var(--mask-image);
+	-webkit-mask-size: var(--mask-size);
+	mask-mode: alpha;
+	-webkit-mask-position: var(--mask-position);
+	mask-position: var(--mask-position);
+	-webkit-mask-repeat: var(--mask-repeat);
+	mask-repeat: var(--mask-repeat);
+
+}
+
+/*body::after {*/
+/*	position: absolute;*/
+/*	content: '';*/
+/*	inset: 0;*/
+/*	z-index: 5;*/
+/*	background: radial-gradient(circle, transparent, rgb(var(--fg-color)));*/
+/*	background-size: cover;*/
+/*	mask-mode: alpha;*/
+/*}*/

@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>Grid</title>
+        <link rel="stylesheet" href="css/grid.css">
+    </head>
+    <body>
+        <div class="grid"></div>
+
+        <script>
+            const grid = document.querySelector('.grid');
+            document.addEventListener('mousemove', (e) => {
+                const mousePos = {
+                    x: Math.round((e.clientX / window.innerWidth) * 100),
+                    y: Math.round((e.clientY / window.innerHeight) * 100)
+                };
+                grid.style.webkitMaskPosition = `${e.clientX - 500}px ${e.clientY - 500}px`;
+            });
+        </script>
+    </body>
+</html>
