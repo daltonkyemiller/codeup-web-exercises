@@ -6,17 +6,11 @@
         <link rel="stylesheet" href="css/grid.css">
     </head>
     <body>
-        <div class="grid"></div>
+        <!--<div class="grid"></div>-->
 
-        <script>
-            const grid = document.querySelector('.grid');
-            document.addEventListener('mousemove', (e) => {
-                const mousePos = {
-                    x: Math.round((e.clientX / window.innerWidth) * 100),
-                    y: Math.round((e.clientY / window.innerHeight) * 100)
-                };
-                grid.style.webkitMaskPosition = `${e.clientX - 500}px ${e.clientY - 500}px`;
-            });
-        </script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.1/p5.min.js"
+                integrity="sha512-NxocnqsXP3zm0Xb42zqVMvjQIktKEpTIbCXXyhBPxqGZHqhcOXHs4pXI/GoZ8lE+2NJONRifuBpi9DxC58L0Lw=="
+                crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+        <script src="js/p5/sketch.js" type="module"></script>
     </body>
 </html>

@@ -4,8 +4,6 @@ const GITHUB_API_URL = 'https://api.github.com';
 
 
 const getDateOfLastCommit = (username) => {
-    if (username === undefined) throw new Error('"username" must be defined');
-
     const headers = { 'Authorization': `token ${GITHUB_API_KEY}` };
 
     return fetch(`${GITHUB_API_URL}/users/${username}/events/public`, { headers })

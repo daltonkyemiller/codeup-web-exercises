@@ -1,39 +1,43 @@
 @import "../../css/defaults/defaults.css";
 
 body {
+	display: flex;
+	justify-content: center;
+	align-items: center;
 	min-height: 100vh;
 
 }
 
-
-body {
-	--grid-thickness: 5%;
+.svg-grid {
+	width: 100%;
+	min-height: 100vh;
 }
 
-.grid {
-	position: absolute;
-	content: '';
-	inset: 0;
-	background: linear-gradient(to right, rgb(var(--fg-color)) var(--grid-thickness), transparent var(--grid-thickness)),
-	linear-gradient(to bottom, rgb(var(--fg-color)) var(--grid-thickness), transparent var(--grid-thickness));
-	background-size: 5vmin 5vmin;
+/*.grid {*/
+/*	position: absolute;*/
+/*	content: '';*/
+/*	inset: 0;*/
+/*	background: linear-gradient(to right, rgb(var(--fg-color)) var(--grid-thickness), transparent var(--grid-thickness)),*/
+/*	linear-gradient(to bottom, rgb(var(--fg-color)) var(--grid-thickness), transparent var(--grid-thickness));*/
+/*	background-size: 5vmin 5vmin;*/
 
 
-	--mask-image: radial-gradient(circle, rgb(var(--fg-color)) 25%, transparent 50%);
-	--mask-size: 1000px 1000px;
-	--mask-position: 50%;
-	--mask-repeat: no-repeat;
+/*--grid-thickness: 5%;*/
+/*	--mask-image: radial-gradient(circle, rgb(var(--fg-color)) 25%, transparent 50%);*/
+/*	--mask-size: 1000px 1000px;*/
+/*	--mask-position: 50%;*/
+/*	--mask-repeat: no-repeat;*/
 
-	-webkit-mask-image: var(--mask-image);
-	mask-image: var(--mask-image);
-	-webkit-mask-size: var(--mask-size);
-	mask-mode: alpha;
-	-webkit-mask-position: var(--mask-position);
-	mask-position: var(--mask-position);
-	-webkit-mask-repeat: var(--mask-repeat);
-	mask-repeat: var(--mask-repeat);
+/*	-webkit-mask-image: var(--mask-image);*/
+/*	mask-image: var(--mask-image);*/
+/*	-webkit-mask-size: var(--mask-size);*/
+/*	mask-mode: alpha;*/
+/*	-webkit-mask-position: var(--mask-position);*/
+/*	mask-position: var(--mask-position);*/
+/*	-webkit-mask-repeat: var(--mask-repeat);*/
+/*	mask-repeat: var(--mask-repeat);*/
 
-}
+/*}*/
 
 /*body::after {*/
 /*	position: absolute;*/
