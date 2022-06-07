@@ -160,5 +160,15 @@
     console.log(makeObjectFromString('John Jacob'));
     console.groupEnd();
 
+    // ############################## Warmup 06/07 ############################## //
+    fetch('https://quotes.rest/qod')
+        .then(res => res.json())
+        .then(data => {
+            console.group('06/07');
+            console.log(data);
+            console.groupEnd();
+
+        });
+
 
 }());
