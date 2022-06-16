@@ -50,8 +50,7 @@ HTML, CSS, and Javascript web exercises from my time at [codeup](https://codeup.
 ### Movies App
 
 ![Desktop Demo](./readme/images/movies_app_demo.gif)
-Movie app I built with [@ScottRoberts70](https://github.com/orgs/roberts-miller-umbriel/people/ScottRoberts70) as part
-of a paired programming project
+Movie app I built with [@ScottRoberts70](https://github.com/ScottRoberts70) as part of a paired programming project
 
 #### Built With
 
