@@ -47,3 +47,24 @@ HTML, CSS, and Javascript web exercises from my time at [codeup](https://codeup.
 - Registers user input and updates component based on weather or not they are inputting
   the [Konami Code](https://en.wikipedia.org/wiki/Konami_Code) correctly
 
+### Movies App
+
+![Desktop Demo](./readme/images/movies_app_demo.gif)
+Movie app I built with [@ScottRoberts70](https://github.com/orgs/roberts-miller-umbriel/people/ScottRoberts70) as part
+of a paired programming project
+
+#### Built With
+
+- HTML
+- CSS
+- Javascript
+- [TMDB API](https://developers.themoviedb.org/3)
+- [Flickity](https://flickity.metafizzy.co/)
+
+#### Features
+
+- Fetches movie data from [TMDB API](https://developers.themoviedb.org/3) using native JS fetch API, then generates
+  cards to be put into a [Flickity](https://flickity.metafizzy.co/) carousel.
+- Display a modal when a movie is selected that gives more info.
+- User can add/remove movies to and from their movie list 
+
